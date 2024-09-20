@@ -1,16 +1,25 @@
 package com.example.floridex
 
 import android.content.Context
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.floridex.ui.theme.DeepTeal40
 import com.example.floridex.ui.theme.DeepTeal80
 import com.example.floridex.ui.theme.Green40
@@ -28,21 +37,28 @@ class Settings {
     @Composable
     fun MakeDescription(name: String, modifier: Modifier) {
         BackgroundTheme()
-        DescriptionArea(name)
-        DescriptionTabButtons {
-            TODO("not implemented")
-        }
     }
 
     @Preview
     @Composable
     fun BackgroundTheme() {
-        val color = if (isSystemInDarkTheme()) {
-            listOf(DeepTeal80)
-        } else {
-            listOf(DeepTeal40)
+        var color = listOf(DeepTeal40)
+        if (isSystemInDarkTheme())
+        {
+            color = listOf(DeepTeal80)
         }
 
-        Box(modifier = Modifier.fillMaxSize().background(color))
+        Box (modifier = Modifier.fillMaxSize().background(color))
+        {
+            // To fill out soon
+        }
+
+        /*
+        @Composable
+        fun SettingsArea() {
+
+        }
+        */
     }
+    // Took some code from MainActivity.kt (I believe was Lucas' work)
 }
