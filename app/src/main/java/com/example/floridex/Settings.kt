@@ -38,7 +38,7 @@ class Settings {
         get() = resources.displayMetrics.heightPixels
 
     @Composable
-    fun MakeDescription(name: String, modifier: Modifier) {
+    fun RunSettings(name: String, modifier: Modifier) {
         BackgroundTheme()
     }
 
@@ -52,17 +52,11 @@ class Settings {
         }
 
         Box (modifier = Modifier.fillMaxSize().background(color = color))
-
-        /*
-        @Composable
-        fun SettingsArea() {
-
-        }
-        */
     }
 
     @Composable
     fun SettingsButtons(onClick: () -> Unit) {
+        /*
         Button(colors = ButtonColors(DeepTeal40, Color.White, DeepTeal40, Color.Black),
             modifier = Modifier.offset(0.dp, 100.dp).width(137.5f.dp),
             onClick = { onClick() }) {
@@ -78,7 +72,18 @@ class Settings {
             onClick = { onClick() }) {
             Text("Map")
         }
+
+         */
     }
 
-    // Took some code from MainActivity.kt (I believe was Lucas' work)
+    /*
+    @Composable
+    fun SettingsArea()
+    {
+
+    }
+
+    */
+
+    // Took some code from Description.kt (I believe was Lucas' work)
 }
