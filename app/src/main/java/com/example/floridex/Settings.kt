@@ -9,11 +9,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -49,9 +52,6 @@ class Settings {
         }
 
         Box (modifier = Modifier.fillMaxSize().background(color = color))
-        {
-            // To fill out soon
-        }
 
         /*
         @Composable
@@ -60,5 +60,25 @@ class Settings {
         }
         */
     }
+
+    @Composable
+    fun SettingsButtons(onClick: () -> Unit) {
+        Button(colors = ButtonColors(DeepTeal40, Color.White, DeepTeal40, Color.Black),
+            modifier = Modifier.offset(0.dp, 100.dp).width(137.5f.dp),
+            onClick = { onClick() }) {
+            Text("Info")
+        }
+        Button(colors = ButtonColors(DeepTeal40, Color.White, DeepTeal40, Color.Black),
+            modifier = Modifier.offset(137.5f.dp, 100.dp).width(137.5f.dp),
+            onClick = { onClick() }) {
+            Text("Cry")
+        }
+        Button(colors = ButtonColors(DeepTeal40, Color.White, DeepTeal40, Color.Black),
+            modifier = Modifier.offset(275.dp, 100.dp).width(137.5f.dp),
+            onClick = { onClick() }) {
+            Text("Map")
+        }
+    }
+
     // Took some code from MainActivity.kt (I believe was Lucas' work)
 }
