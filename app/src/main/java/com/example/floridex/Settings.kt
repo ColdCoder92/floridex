@@ -52,6 +52,12 @@ class Settings {
         }
 
         Box (modifier = Modifier.fillMaxSize().background(color = color))
+
+        Box (modifier = Modifier.width(425.dp).heightIn(50.dp).background(Green40))
+        {
+            Text("Settings", modifier = Modifier.offset(150.dp, 17.5.dp) ,textAlign = TextAlign.Center)
+        }
+
     }
 
     @Composable
