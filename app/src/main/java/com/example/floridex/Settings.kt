@@ -42,13 +42,13 @@ class Settings {
     @Preview
     @Composable
     fun BackgroundTheme() {
-        var color = listOf(DeepTeal40)
+        var color = DeepTeal40
         if (isSystemInDarkTheme())
         {
-            color = listOf(DeepTeal80)
+            color = DeepTeal80
         }
 
-        Box (modifier = Modifier.fillMaxSize().background(color))
+        Box (modifier = Modifier.fillMaxSize().background(color = color))
         {
             // To fill out soon
         }
