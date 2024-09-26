@@ -55,14 +55,21 @@ class Settings {
 
         Box (modifier = Modifier.width(425.dp).heightIn(50.dp).background(Green40))
         {
-            Text("Settings", modifier = Modifier.offset(150.dp, 17.5.dp) ,textAlign = TextAlign.Center)
+            Text("Settings", modifier = Modifier.offset(167.5.dp, 17.5.dp), textAlign = TextAlign.Center)
+        }
+
+        Box (modifier = Modifier.offset(0.dp, 100.dp).width(425.dp).heightIn(50.dp).background(Orange40))
+        {
+            Text("Username", modifier = Modifier.offset(5.dp, 17.5.dp))
+            Text("Username", modifier = Modifier.offset(320.dp, 17.5.dp), textAlign = TextAlign.End)
+            // ^ Trying to get this aligned to the right
         }
 
     }
 
     @Composable
     fun SettingsButtons(onClick: () -> Unit) {
-        /*
+
         Button(colors = ButtonColors(DeepTeal40, Color.White, DeepTeal40, Color.Black),
             modifier = Modifier.offset(0.dp, 100.dp).width(137.5f.dp),
             onClick = { onClick() }) {
@@ -78,8 +85,6 @@ class Settings {
             onClick = { onClick() }) {
             Text("Map")
         }
-
-         */
     }
 
     /*
