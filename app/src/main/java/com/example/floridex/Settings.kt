@@ -53,16 +53,29 @@ class Settings {
 
         Box (modifier = Modifier.fillMaxSize().background(color = color))
 
-        Box (modifier = Modifier.width(425.dp).heightIn(50.dp).background(Green40))
+        Box (modifier = Modifier.width(425.dp).heightIn(75.dp).background(Green40))
         {
-            Text("Settings", modifier = Modifier.offset(167.5.dp, 17.5.dp), textAlign = TextAlign.Center)
+            Text("Settings", modifier = Modifier.offset(167.5.dp, 30.dp), textAlign = TextAlign.Center)
         }
 
         Box (modifier = Modifier.offset(0.dp, 100.dp).width(425.dp).heightIn(50.dp).background(Orange40))
         {
             Text("Username", modifier = Modifier.offset(5.dp, 17.5.dp))
+
+            Image(painter = painterResource(R.drawable.edit_icon), contentDescription = null, modifier = Modifier.offset(280.dp, 6.5.dp))
+
             Text("Username", modifier = Modifier.offset(320.dp, 17.5.dp), textAlign = TextAlign.End)
             // ^ Trying to get this aligned to the right
+        }
+
+        Box (modifier = Modifier.offset(0.dp, 151.dp).width(425.dp).heightIn(50.dp).background(Orange40))
+        {
+            Text("Reset Password", modifier = Modifier.offset(5.dp, 17.5.dp))
+        }
+
+        Box (modifier = Modifier.offset(0.dp, 202.dp).width(425.dp).heightIn(50.dp).background(Orange40))
+        {
+            Text("Contact Support", modifier = Modifier.offset(5.dp, 17.5.dp))
         }
 
     }
