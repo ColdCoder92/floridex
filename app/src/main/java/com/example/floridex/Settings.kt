@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -39,12 +40,12 @@ class Settings {
 
     @Composable
     fun RunSettings(name: String, modifier: Modifier) {
-        BackgroundTheme()
+        SettingsMenu()
     }
 
     @Preview
     @Composable
-    fun BackgroundTheme() {
+    fun SettingsMenu() {
         var color = DeepTeal40
         if (isSystemInDarkTheme())
         {
@@ -62,7 +63,8 @@ class Settings {
         {
             Text("Username", modifier = Modifier.offset(5.dp, 17.5.dp))
 
-            Image(painter = painterResource(R.drawable.edit_icon), contentDescription = null, modifier = Modifier.offset(280.dp, 6.5.dp))
+            Image(painter = painterResource(R.drawable.edit_icon), contentDescription = null,
+                modifier = Modifier.offset(280.dp, 6.5.dp), colorFilter = ColorFilter.tint(Color.Black))
 
             Text("Username", modifier = Modifier.offset(320.dp, 17.5.dp), textAlign = TextAlign.End)
             // ^ Trying to get this aligned to the right
@@ -79,7 +81,7 @@ class Settings {
         }
 
     }
-
+    /*
     @Composable
     fun SettingsButtons(onClick: () -> Unit) {
 
@@ -100,7 +102,6 @@ class Settings {
         }
     }
 
-    /*
     @Composable
     fun SettingsArea()
     {
