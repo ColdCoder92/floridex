@@ -83,11 +83,13 @@ class Settings {
         Box (modifier = Modifier.offset(0.dp, 253.dp).width(425.dp).heightIn(50.dp).background(Orange40))
         {
             Text("Delete Account", modifier = Modifier.offset(5.dp, 17.5.dp))
+            // want this in red
         }
 
         Box (modifier = Modifier.offset(0.dp, 304.dp).width(425.dp).heightIn(50.dp).background(Orange40))
         {
             Text("Sign Out", modifier = Modifier.offset(5.dp, 17.5.dp))
+            // want this in red
         }
 
     }
