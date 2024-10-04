@@ -80,16 +80,16 @@ class Settings {
             Text("Contact Support", modifier = Modifier.offset(5.dp, 17.5.dp))
         }
 
-        Box (modifier = Modifier.offset(0.dp, 253.dp).width(425.dp).heightIn(50.dp).background(Orange40))
+        Box (modifier = Modifier.offset(0.dp, 253.dp).width(425.dp).heightIn(50.dp).background(Color.Red))
         {
             Text("Delete Account", modifier = Modifier.offset(5.dp, 17.5.dp))
-            // want this in red
+            // want this box in a lighter red
         }
 
-        Box (modifier = Modifier.offset(0.dp, 304.dp).width(425.dp).heightIn(50.dp).background(Orange40))
+        Box (modifier = Modifier.offset(0.dp, 304.dp).width(425.dp).heightIn(50.dp).background(Color.Red))
         {
             Text("Sign Out", modifier = Modifier.offset(5.dp, 17.5.dp))
-            // want this in red
+            // want this box in a lighter red
         }
 
     }
