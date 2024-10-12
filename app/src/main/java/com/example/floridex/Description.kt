@@ -3,6 +3,7 @@ package com.example.floridex
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Picture
+import android.os.Bundle
 import android.widget.ImageView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -33,7 +34,52 @@ import com.example.floridex.ui.theme.Green80
 import com.example.floridex.ui.theme.Orange40
 import com.example.floridex.ui.theme.Orange80
 
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import android.widget.TextView
+import com.android.volley.AuthFailureError
+import com.android.volley.NetworkError
+import com.android.volley.NoConnectionError
+import com.android.volley.ParseError
+import com.android.volley.ServerError
+import com.android.volley.TimeoutError
+
 class Description {
+    // Connect to the project's MySQL database
+    private lateinit var requestQueue: RequestQueue
+    private lateinit var textView: TextView
+    private val APILINK = "https://2ki3zt42lgxib72fg6ko4av4pi0jwcvw.lambda-url.us-east-1.on.aws/"
+
+    fun makeRequest(context: Context){
+
+        requestQueue = Volley.newRequestQueue(context)
+        textView = TextView(context)
+
+        val stringRequest = StringRequest(
+            Request.Method.GET,
+            APILINK,
+            { response ->
+                textView.text = response
+                println("Response: $response")
+            },
+            { error ->
+                textView.text = when (error) {
+                    is TimeoutError -> "Request timed out"
+                    is NoConnectionError -> "No internet connection"
+                    is AuthFailureError -> "Authentication error"
+                    is ServerError -> "Server error"
+                    is NetworkError -> "Network error"
+                    is ParseError -> "Data parsing error"
+                    else -> "Error: ${error.message}"
+                }
+            }
+        )
+
+        requestQueue.add(stringRequest)
+    }
 
     val Context.screenWidth: Int
         get() = resources.displayMetrics.widthPixels
@@ -42,7 +88,9 @@ class Description {
         get() = resources.displayMetrics.heightPixels
 
     @Composable
-    fun MakeDescription(name: String, modifier: Modifier) {
+    fun MakeDescription(name: String, modifier: Modifier, context: Context) {
+        makeRequest(context)
+
         BackgroundTheme()
         DescriptionArea(name)
         DescriptionTabButtons {
@@ -67,23 +115,31 @@ class Description {
                     Offset(0f, 0f),
                     Offset(750f, 0f),
 
-                    TileMode.Clamp)))
+                    TileMode.Clamp
+                )
+            ))
     }
 
     @Composable
     fun DescriptionTabButtons(onClick: () -> Unit) {
         Button(colors = ButtonColors(DeepTeal40, Color.White, DeepTeal40, Color.Black),
-            modifier = Modifier.offset(0.dp, 100.dp).width(137.5f.dp),
+            modifier = Modifier
+                .offset(0.dp, 100.dp)
+                .width(137.5f.dp),
             onClick = { onClick() }) {
             Text("Info")
         }
         Button(colors = ButtonColors(DeepTeal40, Color.White, DeepTeal40, Color.Black),
-            modifier = Modifier.offset(137.5f.dp, 100.dp).width(137.5f.dp),
+            modifier = Modifier
+                .offset(137.5f.dp, 100.dp)
+                .width(137.5f.dp),
             onClick = { onClick() }) {
             Text("Cry")
         }
         Button(colors = ButtonColors(DeepTeal40, Color.White, DeepTeal40, Color.Black),
-            modifier = Modifier.offset(275.dp, 100.dp).width(137.5f.dp),
+            modifier = Modifier
+                .offset(275.dp, 100.dp)
+                .width(137.5f.dp),
             onClick = { onClick() }) {
             Text("Map")
         }
@@ -91,8 +147,12 @@ class Description {
 
     @Composable
     fun DescriptionArea(name: String) {
-        Box (modifier = Modifier.offset(0.dp, 125.dp).width(425.dp).heightIn(250.dp)
-            .fillMaxSize().background(Green40)) {
+        Box (modifier = Modifier
+            .offset(0.dp, 125.dp)
+            .width(425.dp)
+            .heightIn(250.dp)
+            .fillMaxSize()
+            .background(Green40)) {
             Text(name, modifier = Modifier.offset(0.dp, 50.dp), textAlign = TextAlign.Center)
             Image(painter = painterResource(R.drawable.cat), contentDescription = null,
                 modifier = Modifier.offset(0.dp, 100.dp),
