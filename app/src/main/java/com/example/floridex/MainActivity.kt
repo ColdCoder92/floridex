@@ -55,7 +55,10 @@ class MainActivity : ComponentActivity() {
             FloridexTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val description = Description()
-                    description.MakeDescription("Cat", modifier = Modifier.padding(innerPadding))
+                    val appContext = applicationContext
+                    description.MakeDescription("Cat", modifier = Modifier.padding(innerPadding),
+                        appContext
+                    )
                 }
             }
         }
