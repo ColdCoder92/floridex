@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
                     val description = Description()
                     val appContext = applicationContext
                     description.MakeDescription("Cat", modifier = Modifier.padding(innerPadding),
-                        appContext
+                        appContext, 0
                     )
                 }
             }

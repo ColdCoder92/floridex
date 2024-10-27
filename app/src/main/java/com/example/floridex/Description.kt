@@ -51,16 +51,16 @@ class Description {
     // Connect to the project's MySQL database
     private lateinit var requestQueue: RequestQueue
     private lateinit var textView: TextView
-    private val APILINK = "https://2ki3zt42lgxib72fg6ko4av4pi0jwcvw.lambda-url.us-east-1.on.aws/"
+    private val APILINK = "https://m2opdmzetj.execute-api.us-east-1.amazonaws.com/filter/update "
 
-    fun makeRequest(context: Context){
+    fun makeRequest(context: Context, dexID: Int){
 
         requestQueue = Volley.newRequestQueue(context)
         textView = TextView(context)
 
         val stringRequest = StringRequest(
             Request.Method.GET,
-            APILINK,
+            ("$APILINK?id=$dexID"),
             { response ->
                 textView.text = response
                 println("Response: $response")
@@ -88,8 +88,8 @@ class Description {
         get() = resources.displayMetrics.heightPixels
 
     @Composable
-    fun MakeDescription(name: String, modifier: Modifier, context: Context) {
-        makeRequest(context)
+    fun MakeDescription(name: String, modifier: Modifier, context: Context, dexID: Int) {
+        makeRequest(context, dexID)
 
         BackgroundTheme()
         DescriptionArea(name)
