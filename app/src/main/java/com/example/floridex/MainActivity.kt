@@ -42,6 +42,7 @@ import com.example.floridex.ui.theme.Green80
 import com.example.floridex.ui.theme.Orange40
 import com.example.floridex.ui.theme.Orange80
 import com.example.floridex.Description
+import com.example.floridex.CreatureList
 
 
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,13 +54,15 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FloridexTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val description = Description()
+//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                    val description = Description()
+                    val list = CreatureList()
                     val appContext = applicationContext
-                    description.MakeDescription("Cat", modifier = Modifier.padding(innerPadding),
-                        appContext, 0
-                    )
-                }
+//                    description.MakeDescription("Cat", modifier = Modifier.padding(innerPadding),
+//                        appContext, 0
+//                    )
+                    list.MakeCreatureList(appContext)
+//                }
             }
         }
     }
