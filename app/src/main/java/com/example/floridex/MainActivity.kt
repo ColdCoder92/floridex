@@ -54,15 +54,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FloridexTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                    val description = Description()
-                    val list = CreatureList()
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    val description = Description()
                     val appContext = applicationContext
-//                    description.MakeDescription("Cat", modifier = Modifier.padding(innerPadding),
-//                        appContext, 0
-//                    )
-                    list.MakeCreatureList(appContext)
-//                }
+                    description.MakeDescription("Cat", modifier = Modifier.padding(innerPadding),
+                        appContext, 0
+                    )
+                }
             }
         }
     }
