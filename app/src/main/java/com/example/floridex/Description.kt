@@ -3,7 +3,10 @@ package com.example.floridex
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Picture
+import android.media.MediaRecorder
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.ImageView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -40,6 +43,11 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.android.volley.AuthFailureError
 import com.android.volley.NetworkError
 import com.android.volley.NoConnectionError
@@ -51,7 +59,7 @@ class Description {
     // Connect to the project's MySQL database
     private lateinit var requestQueue: RequestQueue
     private lateinit var textView: TextView
-    private val APILINK = "https://m2opdmzetj.execute-api.us-east-1.amazonaws.com/filter/update "
+    private val gatewayLINK = "https://m2opdmzetj.execute-api.us-east-1.amazonaws.com/filter/update"
 
     fun makeRequest(context: Context, dexID: Int){
 
@@ -60,7 +68,7 @@ class Description {
 
         val stringRequest = StringRequest(
             Request.Method.GET,
-            ("$APILINK?id=$dexID"),
+            ("$gatewayLINK?id=$dexID"),
             { response ->
                 textView.text = response
                 println("Response: $response")
@@ -87,15 +95,14 @@ class Description {
     val Context.screenHeight: Int
         get() = resources.displayMetrics.heightPixels
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     @Composable
     fun MakeDescription(name: String, modifier: Modifier, context: Context, dexID: Int) {
         makeRequest(context, dexID)
 
         BackgroundTheme()
         DescriptionArea(name)
-        DescriptionTabButtons {
-            TODO("not implemented")
-        }
+        DescriptionTabButtons(name)
     }
 
     @Preview
@@ -120,28 +127,66 @@ class Description {
             ))
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     @Composable
-    fun DescriptionTabButtons(onClick: () -> Unit) {
+    fun DescriptionTabButtons(name: String) {
+        var infoPressed = remember { mutableStateOf(false) }
+        var cryPressed = remember { mutableStateOf(false) }
+        var mapPressed = remember { mutableStateOf(false) }
+
         Button(colors = ButtonColors(DeepTeal40, Color.White, DeepTeal40, Color.Black),
             modifier = Modifier
                 .offset(0.dp, 100.dp)
                 .width(137.5f.dp),
-            onClick = { onClick() }) {
+            onClick = {
+                println("Info pressed")
+                infoPressed.value = true
+                cryPressed.value = false
+                mapPressed.value = false
+            }) {
             Text("Info")
         }
         Button(colors = ButtonColors(DeepTeal40, Color.White, DeepTeal40, Color.Black),
             modifier = Modifier
                 .offset(137.5f.dp, 100.dp)
                 .width(137.5f.dp),
-            onClick = { onClick() }) {
+            onClick = {
+                println("Cry pressed")
+                cryPressed.value = true
+                infoPressed.value = false
+                mapPressed.value = false
+            }) {
             Text("Cry")
         }
         Button(colors = ButtonColors(DeepTeal40, Color.White, DeepTeal40, Color.Black),
             modifier = Modifier
                 .offset(275.dp, 100.dp)
                 .width(137.5f.dp),
-            onClick = { onClick() }) {
+            onClick = {
+                println("Map pressed")
+                mapPressed.value = true
+                infoPressed.value = false
+                cryPressed.value = false
+            }) {
             Text("Map")
+        }
+
+        if (infoPressed.value) {
+            println("Info page")
+            DescriptionArea(name)
+            DescriptionTabButtons(name)
+        }
+
+        if (cryPressed.value) {
+            println("Cry page")
+            CryArea(name)
+            DescriptionTabButtons(name)
+        }
+
+        if (mapPressed.value) {
+            println("Map page")
+            MapArea(name)
+            DescriptionTabButtons(name)
         }
     }
 
@@ -161,9 +206,38 @@ class Description {
             Text("XXX Kilograms", Modifier.offset(200.dp, 100.dp))
             Text("X Meters", Modifier.offset(200.dp, 125.dp))
             Text(
-                "One of the most adorable beings on the planet, cats wander around and search for food like their ancestors. They formed a bond with humans since ancient times.",
+                "One of the most adorable beings on the planet, cats wander around and search for " +
+                        "food like their ancestors. They formed a bond with humans since ancient times.",
                 Modifier.offset(0.dp, 250.dp)
             )
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    @Composable
+    fun CryArea(name: String) {
+        Box (modifier = Modifier
+            .offset(0.dp, 125.dp)
+            .width(425.dp)
+            .heightIn(250.dp)
+            .fillMaxSize()
+            .background(Green40)) {
+            Text(name, modifier = Modifier.offset(0.dp, 50.dp), textAlign = TextAlign.Center)
+            MediaStore.Audio.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+        }
+    }
+
+    @Composable
+    fun MapArea(name: String) {
+        Box (modifier = Modifier
+            .offset(0.dp, 125.dp)
+            .width(425.dp)
+            .heightIn(250.dp)
+            .fillMaxSize()
+            .background(Green40)) {
+            Text(name, modifier = Modifier.offset(0.dp, 50.dp), textAlign = TextAlign.Center)
+            Image(painter = painterResource(R.drawable.map), contentDescription = null,
+                modifier = Modifier.offset(0.dp, 100.dp), contentScale = ContentScale.FillWidth)
         }
     }
 }
