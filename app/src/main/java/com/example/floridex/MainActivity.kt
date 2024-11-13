@@ -48,6 +48,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.floridex.ui.theme.FloridexTheme
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

@@ -56,22 +56,22 @@ import com.android.volley.ServerError
 import com.android.volley.TimeoutError
 
 class Description {
-    // Connect to the project's MySQL database
     private lateinit var requestQueue: RequestQueue
     private lateinit var textView: TextView
     private val gatewayLINK = "https://m2opdmzetj.execute-api.us-east-1.amazonaws.com/filter/update"
 
-    fun makeRequest(context: Context, dexID: Int){
+    fun makeRequest(context: Context, dexID: Int): String{
 
         requestQueue = Volley.newRequestQueue(context)
         textView = TextView(context)
+        var responseInfo = "";
 
         val stringRequest = StringRequest(
             Request.Method.GET,
             ("$gatewayLINK?id=$dexID"),
             { response ->
                 textView.text = response
-                println("Response: $response")
+                responseInfo.plus(response)
             },
             { error ->
                 textView.text = when (error) {
@@ -87,6 +87,7 @@ class Description {
         )
 
         requestQueue.add(stringRequest)
+        return responseInfo
     }
 
     val Context.screenWidth: Int
@@ -98,7 +99,8 @@ class Description {
     @RequiresApi(Build.VERSION_CODES.Q)
     @Composable
     fun MakeDescription(name: String, modifier: Modifier, context: Context, dexID: Int) {
-        makeRequest(context, dexID)
+        val response = makeRequest(context, dexID)
+        println("Response: $response")
 
         BackgroundTheme()
         DescriptionArea(name)
