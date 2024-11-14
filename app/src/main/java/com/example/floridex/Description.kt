@@ -44,6 +44,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -58,7 +59,7 @@ import com.android.volley.TimeoutError
 class Description {
     private lateinit var requestQueue: RequestQueue
     private lateinit var textView: TextView
-    private val gatewayLINK = "https://m2opdmzetj.execute-api.us-east-1.amazonaws.com/filter/update"
+    private val gatewayLINK = "https://id5sdg2r34.execute-api.us-east-1.amazonaws.com/filter"
 
     fun makeRequest(context: Context, dexID: Int): String{
 
@@ -72,6 +73,7 @@ class Description {
             { response ->
                 textView.text = response
                 responseInfo.plus(response)
+                println("Response: $response")
             },
             { error ->
                 textView.text = when (error) {
@@ -87,6 +89,7 @@ class Description {
         )
 
         requestQueue.add(stringRequest)
+        val response = textView.text.toString()
         return responseInfo
     }
 
@@ -103,6 +106,7 @@ class Description {
         println("Response: $response")
 
         BackgroundTheme()
+        ProfileNav()
         DescriptionArea(name)
         DescriptionTabButtons(name)
     }
@@ -127,6 +131,16 @@ class Description {
                     TileMode.Clamp
                 )
             ))
+    }
+
+    @Composable
+    fun ProfileNav() {
+        Button(modifier = Modifier.offset(350.dp, 37.5.dp).width(50.dp).height(50.dp),
+            onClick = {}
+        ) {}
+        Image(painter = painterResource(R.drawable.profile), contentDescription = null,
+            modifier = Modifier.offset(350.dp, 37.5.dp).width(50.dp).height(50.dp)
+        )
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
