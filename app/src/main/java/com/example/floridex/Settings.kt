@@ -56,7 +56,17 @@ import com.android.volley.ParseError
 import com.android.volley.ServerError
 import com.android.volley.TimeoutError
 
+data class User(
+    val username: String,
+    val email: String,
+    val password: String
+)
+
 class Settings {
+    private lateinit var requestQueue: RequestQueue
+    private lateinit var textView: TextView
+    private val gatewayLINK = "https://z41sqpegib.execute-api.us-east-1.amazonaws.com/userList"
+
     val Context.screenWidth: Int
         get() = resources.displayMetrics.widthPixels
 
