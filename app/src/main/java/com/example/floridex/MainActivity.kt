@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val description = Description()
                     val appContext = applicationContext
-                    description.MakeDescription("Cat", modifier = Modifier.padding(innerPadding),
+                    description.MakeDescription(modifier = Modifier.padding(innerPadding),
                         appContext, 0
                     )
                 }
