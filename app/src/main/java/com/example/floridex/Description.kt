@@ -3,6 +3,7 @@ package com.example.floridex
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.ImageFormat
 import android.graphics.Picture
 import android.media.ImageReader
@@ -47,12 +48,12 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.MutableLiveData
@@ -62,10 +63,10 @@ import com.android.volley.NoConnectionError
 import com.android.volley.ParseError
 import com.android.volley.ServerError
 import com.android.volley.TimeoutError
-import org.json.JSONArray
 import org.json.JSONObject
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+
 
 data class Creature(
     val dexID: Int,
@@ -74,9 +75,14 @@ data class Creature(
     val description: String,
     val weight: Double,
     val height: Double,
-    val image: JSONObject,
+    val image: CreatureImage,
     val type: String,
     val author: String
+)
+
+data class CreatureImage(
+    val type: String,
+    val data: ByteArray
 )
 
 class Description {
@@ -127,7 +133,7 @@ class Description {
                 rowValue.toString(), Array<Creature>::class.java
             ).toList()
 
-            println("Response: ${creatures[0].image}")
+            println("Response: ${creatures[0].image.type}")
             BackgroundTheme()
             ProfileNav()
             DescriptionArea(creatures[0])
@@ -238,22 +244,11 @@ class Description {
         val weight = creature.weight
         val height = creature.height
         val description = creature.description
-        val imageData = creature.image.get("data") as ByteArray
+        val imageData = creature.image.data
 
-        val imageReader = ImageReader.newInstance(50, 50, ImageFormat.JPEG, 1)
-        var imageBitmap: ImageBitmap = ImageBitmap(50, 50)
-
-        // Obtain the image from the ImageReader
-        val image = imageReader.acquireLatestImage()
-        image?.let {
-            val buffer = image.planes[0].buffer
-            buffer.put(imageData)
-            val bitmap = Bitmap.createBitmap(50, 50, Bitmap.Config.ARGB_8888)
-            bitmap.copyPixelsFromBuffer(buffer)
-            imageBitmap = bitmap.asImageBitmap()
-            image.close()
-        }
-
+        // Obtain the image from the ImageReader and convert it to a Bitmap
+        val bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
+        val imageBitmap = bitmap.asImageBitmap()
 
         Box (modifier = Modifier
             .offset(0.dp, 125.dp)
@@ -263,13 +258,16 @@ class Description {
             .background(Green40)) {
             Text(name, modifier = Modifier.offset(0.dp, 50.dp), textAlign = TextAlign.Center)
             Image(bitmap = imageBitmap, contentDescription = null,
-                modifier = Modifier.offset(0.dp, 100.dp),
+                modifier = Modifier
+                    .offset(0.dp, 100.dp)
+                    .width(200.dp)
+                    .rotate(90f),
                 contentScale = ContentScale.FillWidth
             )
             Text("$weight Kilograms", Modifier.offset(200.dp, 100.dp))
             Text("$height Meters", Modifier.offset(200.dp, 125.dp))
             Text("Habitat: $habitat", Modifier.offset(200.dp, 150.dp))
-            Text(description, Modifier.offset(0.dp, 250.dp))
+            Text(description, Modifier.offset(0.dp, 300.dp))
         }
     }
 
