@@ -7,9 +7,11 @@ import android.graphics.BitmapFactory
 import android.graphics.ImageFormat
 import android.graphics.Picture
 import android.media.ImageReader
+import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.provider.MediaStore
 import android.widget.ImageView
 import androidx.compose.foundation.Image
@@ -48,8 +50,24 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -65,7 +83,7 @@ import com.android.volley.ServerError
 import com.android.volley.TimeoutError
 import org.json.JSONObject
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+
 
 
 data class Creature(
@@ -77,7 +95,8 @@ data class Creature(
     val height: Double,
     val image: CreatureImage,
     val type: String,
-    val author: String
+    val author: String,
+    val sound: String
 )
 
 data class CreatureImage(
@@ -133,11 +152,11 @@ class Description {
                 rowValue.toString(), Array<Creature>::class.java
             ).toList()
 
-            println("Response: ${creatures[0].image.type}")
+            println("Response: ${creatures[0].sound}")
             BackgroundTheme()
             ProfileNav()
             DescriptionArea(creatures[0])
-            DescriptionTabButtons(creatures[0])
+            DescriptionTabButtons(creatures[0], context)
         }
 
     }
@@ -176,7 +195,7 @@ class Description {
 
     @RequiresApi(Build.VERSION_CODES.Q)
     @Composable
-    fun DescriptionTabButtons(creature: Creature) {
+    fun DescriptionTabButtons(creature: Creature, context: Context) {
         var infoPressed = remember { mutableStateOf(false) }
         var cryPressed = remember { mutableStateOf(false) }
         var mapPressed = remember { mutableStateOf(false) }
@@ -221,19 +240,19 @@ class Description {
         if (infoPressed.value) {
             println("Info page")
             DescriptionArea(creature)
-            DescriptionTabButtons(creature)
+            DescriptionTabButtons(creature, context)
         }
 
         if (cryPressed.value) {
             println("Cry page")
-            CryArea(creature)
-            DescriptionTabButtons(creature)
+            CryArea(creature, context)
+            DescriptionTabButtons(creature, context)
         }
 
         if (mapPressed.value) {
             println("Map page")
             MapArea(creature)
-            DescriptionTabButtons(creature)
+            DescriptionTabButtons(creature, context)
         }
     }
 
@@ -246,7 +265,7 @@ class Description {
         val description = creature.description
         val imageData = creature.image.data
 
-        // Obtain the image from the ImageReader and convert it to a Bitmap
+        // Decode the Image Data into a Bitmap
         val bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
         val imageBitmap = bitmap.asImageBitmap()
 
@@ -271,18 +290,64 @@ class Description {
         }
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @RequiresApi(Build.VERSION_CODES.Q)
     @Composable
-    fun CryArea(creature: Creature) {
+    fun CryArea(creature: Creature, context: Context) {
         val name = creature.name
+
         Box (modifier = Modifier
             .offset(0.dp, 125.dp)
             .width(425.dp)
             .heightIn(250.dp)
             .fillMaxSize()
             .background(Green40)) {
-            Text(name, modifier = Modifier.offset(0.dp, 50.dp), textAlign = TextAlign.Center)
-            MediaStore.Audio.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+                Column(modifier = Modifier.fillMaxWidth().fillMaxHeight().padding(16.dp)) {
+                    if (creature.sound.isNotEmpty()) {
+                        val audioLocation = context.assets.openFd("audio/${creature.sound}")
+                        val mediaPlayer = MediaPlayer()
+                        val playing = remember { mutableStateOf(false) }
+                        val position = remember { mutableFloatStateOf(0F) }
+                        mediaPlayer.setDataSource(
+                            audioLocation.fileDescriptor,
+                            audioLocation.startOffset,
+                            audioLocation.length
+                        )
+                        mediaPlayer.setVolume(100F, 100F)
+                        mediaPlayer.prepare()
+                        Text(
+                            name, modifier = Modifier, textAlign = TextAlign.Center
+                        )
+                        Icon(
+                            imageVector = Icons.Default.PlayArrow, contentDescription = null,
+                            modifier = Modifier.size(50.dp).clickable(
+                                enabled = true,
+                                onClick = {
+                                    if (!playing.value) {
+                                        mediaPlayer.start()
+                                    } else {
+                                        mediaPlayer.stop()
+                                        mediaPlayer.prepareAsync()
+                                        mediaPlayer.start()
+                                    }
+                                    playing.value = true
+
+                                    object : CountDownTimer(mediaPlayer.duration.toLong(), 100) {
+                                        override fun onTick(millisUntilFinished: Long) {
+                                            position.floatValue =
+                                                mediaPlayer.currentPosition.toFloat()
+                                        }
+
+                                        override fun onFinish() {
+                                            playing.value = false
+                                        }
+                                    }.start()
+                                })
+                        )
+                    } else {
+                        Text("No audio available")
+                    }
+                }
         }
     }
 
