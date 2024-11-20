@@ -1,6 +1,7 @@
 package com.example.floridex
 
 import android.content.Context
+import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -55,6 +56,8 @@ import com.android.volley.NoConnectionError
 import com.android.volley.ParseError
 import com.android.volley.ServerError
 import com.android.volley.TimeoutError
+import com.google.gson.Gson
+import org.json.JSONObject
 
 data class User(
     val username: String,
@@ -73,9 +76,54 @@ class Settings {
     val Context.screenHeight: Int
         get() = resources.displayMetrics.heightPixels
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     @Composable
-    fun RunSettings(name: String, modifier: Modifier) {
-        SettingsMenu()
+    fun MakeSettingsMenu(modifier: Modifier, context: Context, dexID: Int) {
+        requestQueue = Volley.newRequestQueue(context)
+        textView = TextView(context)
+
+        val hasResponse = remember { mutableStateOf(false) }
+        var responseInfo = remember { mutableStateOf(JSONObject()) }
+
+        val stringRequest = StringRequest(
+            Request.Method.GET,
+            ("$gatewayLINK?key1=value1&key2=value2&key3=value3"),
+            { response ->
+                textView.text = response
+                responseInfo.value = JSONObject(response)
+                hasResponse.value = true
+            },
+            { error ->
+                textView.text = when (error) {
+                    is TimeoutError -> "Request timed out"
+                    is NoConnectionError -> "No internet connection"
+                    is AuthFailureError -> "Authentication error"
+                    is ServerError -> "Server error"
+                    is NetworkError -> "Network error"
+                    is ParseError -> "Data parsing error"
+                    else -> "Error: ${error.message}"
+                }
+            }
+        )
+
+        requestQueue.add(stringRequest)
+        if (hasResponse.value) {
+            val gson = Gson()
+            val rowValue = responseInfo.value.get("username")
+            /*
+            val creatures: List<Creature> = gson.fromJson(
+                rowValue.toString(), Array<Creature>::class.java
+            ).toList()
+
+             */
+
+            println("Response: " + rowValue)
+            //println("Response: ${creatures[0].image.type}")
+
+            SettingsMenu()
+        }
+
+        //SettingsMenu()
     }
 
     @Preview
