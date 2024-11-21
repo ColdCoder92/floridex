@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Floridex Acc Page"
+rootProject.name = "Floridex"
 include(":app")
