@@ -78,7 +78,7 @@ class Settings {
 
     @RequiresApi(Build.VERSION_CODES.Q)
     @Composable
-    fun MakeSettingsMenu(modifier: Modifier, context: Context, dexID: Int) {
+    fun MakeSettingsMenu(modifier: Modifier, context: Context) {
         requestQueue = Volley.newRequestQueue(context)
         textView = TextView(context)
 
@@ -109,13 +109,14 @@ class Settings {
         requestQueue.add(stringRequest)
         if (hasResponse.value) {
             val gson = Gson()
-            val rowValue = responseInfo.value.get("username")
-            /*
-            val creatures: List<Creature> = gson.fromJson(
-                rowValue.toString(), Array<Creature>::class.java
+            val rowValue = responseInfo.value.get("users")
+
+            val users: List<User> = gson.fromJson(
+                rowValue.toString(), Array<User>::class.java
             ).toList()
 
-             */
+
+            //println("Response: " + responseInfo)
 
             println("Response: " + rowValue)
             //println("Response: ${creatures[0].image.type}")
