@@ -14,6 +14,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -69,6 +71,8 @@ class Settings {
     private lateinit var requestQueue: RequestQueue
     private lateinit var textView: TextView
     private val gatewayLINK = "https://z41sqpegib.execute-api.us-east-1.amazonaws.com/userList"
+    //var isPressed = remember { mutableStateOf(false) }
+    // using the above to plug Settings with Profile Page
 
     val Context.screenWidth: Int
         get() = resources.displayMetrics.widthPixels
