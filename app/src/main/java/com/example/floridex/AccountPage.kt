@@ -29,7 +29,9 @@ class AccountPage : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
+        public fun initializeActivity(savedInstanceState: Bundle?) {
+        onCreate(savedInstanceState)
+    }
     /**
      * Fetch the username from the API and set it to the TextView
      */
