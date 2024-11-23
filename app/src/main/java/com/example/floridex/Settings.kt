@@ -180,6 +180,15 @@ class Settings {
             // want this box in a lighter red
         }
 
+        fun onBackPressed() {
+            // Perform your custom action here
+
+
+            // Call the default behavior if needed
+            super.onBackPressed()
+        }
+
+
     }
     /*
     @Composable
