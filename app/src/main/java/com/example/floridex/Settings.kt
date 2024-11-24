@@ -33,6 +33,7 @@ import com.example.floridex.ui.theme.Green40
 import com.example.floridex.ui.theme.Green80
 import com.example.floridex.ui.theme.Orange40
 import com.example.floridex.ui.theme.Orange80
+import com.example.floridex.AccountPage
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
@@ -181,7 +182,7 @@ class Settings {
         }
 
         fun onBackPressed() {
-            // Perform your custom action here
+            // Call AccountPage method
 
 
             // Call the default behavior if needed
