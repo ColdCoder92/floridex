@@ -33,7 +33,7 @@ import com.example.floridex.ui.theme.Green40
 import com.example.floridex.ui.theme.Green80
 import com.example.floridex.ui.theme.Orange40
 import com.example.floridex.ui.theme.Orange80
-import com.example.floridex.AccountPage
+//import com.example.floridex.AccountPage
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
@@ -72,6 +72,7 @@ class Settings {
     private lateinit var requestQueue: RequestQueue
     private lateinit var textView: TextView
     private val gatewayLINK = "https://z41sqpegib.execute-api.us-east-1.amazonaws.com/userList"
+    var users = ArrayList<User>().toList()
     //var isPressed = remember { mutableStateOf(false) }
     // using the above to plug Settings with Profile Page
 
@@ -116,7 +117,7 @@ class Settings {
             val gson = Gson()
             val rowValue = responseInfo.value.get("users")
 
-            val users: List<User> = gson.fromJson(
+            users = gson.fromJson(
                 rowValue.toString(), Array<User>::class.java
             ).toList()
 
@@ -135,6 +136,7 @@ class Settings {
     @Preview
     @Composable
     fun SettingsMenu() {
+
         var color = DeepTeal40
         if (isSystemInDarkTheme())
         {
@@ -155,7 +157,7 @@ class Settings {
             Image(painter = painterResource(R.drawable.edit_icon), contentDescription = null,
                 modifier = Modifier.offset(280.dp, 6.5.dp), colorFilter = ColorFilter.tint(Color.Black))
 
-            Text("Username", modifier = Modifier.offset(320.dp, 17.5.dp), textAlign = TextAlign.End)
+            Text(users[0].username, modifier = Modifier.offset(320.dp, 17.5.dp), textAlign = TextAlign.End)
             // ^ Trying to get this aligned to the right
         }
 
@@ -186,7 +188,7 @@ class Settings {
 
 
             // Call the default behavior if needed
-            super.onBackPressed()
+            //super.onBackPressed()
         }
 
 
