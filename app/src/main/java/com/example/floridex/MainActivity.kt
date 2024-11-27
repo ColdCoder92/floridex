@@ -43,6 +43,7 @@ import com.example.floridex.ui.theme.Orange40
 import com.example.floridex.ui.theme.Orange80
 import com.example.floridex.Description
 import com.example.floridex.CreatureList
+import com.example.floridex.Settings
 
 
 import androidx.compose.ui.tooling.preview.Preview
@@ -57,10 +58,15 @@ class MainActivity : ComponentActivity() {
             FloridexTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val description = Description()
+                    val settings = Settings()
                     val appContext = applicationContext
+                    /*
                     description.MakeDescription(modifier = Modifier.padding(innerPadding),
                         appContext, 0
                     )
+
+                     */
+                    settings.MakeSettingsMenu(modifier = Modifier.padding(innerPadding), appContext)
                 }
             }
         }
