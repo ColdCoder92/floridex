@@ -2,6 +2,7 @@ package com.example.floridex
 
 import android.content.Context
 import android.os.Build
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -177,7 +178,9 @@ class Settings {
             // want this box in a lighter red
         }
 
-        Box (modifier = Modifier.offset(0.dp, 304.dp).width(425.dp).heightIn(50.dp).background(Color(0xffff4444)))
+        Box (modifier = Modifier.offset(0.dp, 304.dp).width(425.dp).heightIn(50.dp).background(Color(0xffff4444)).clickable{
+
+        })
         {
             Text("Sign Out", modifier = Modifier.offset(5.dp, 17.5.dp))
             // want this box in a lighter red
