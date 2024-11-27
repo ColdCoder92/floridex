@@ -10,8 +10,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="orangeFloridex">#FFA500</color>
+    <color name="GreenFloridex">#66BB6A</color>
+    <color name="TealFloridex">#008080</color>
     <color name="Background">#008080</color>
     <color name="Orange">#FFA500</color>
-    <color name="Green">#66BB6A</color>
+    <color name="Green">#66BB6
 
 </resources>
