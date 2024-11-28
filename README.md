@@ -1,6 +1,6 @@
 # Florida Wildlife Information Repository
 
-![Florida Fuana&Flora Logo](logo.png)
+![floridex_logo.png](app%2Fsrc%2Fmain%2Fres%2Fdrawable%2Ffloridex_logo.png)
 
 The Florida Fauna & Flora is a Kotlin-based mobile application designed to provide information and insights into the diverse range of wildlife species and flora found in Florida. Whether you're a nature enthusiast, a student, or a curious traveler, this app is your ultimate companion to explore and learn about Florida's fascinating fauna and flora.
 
