@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/TealFloridex"
+    android:background="@color/Background"
     android:gravity="center"
     android:padding="16dp"
     tools:context=".MainActivity">
@@ -15,58 +15,137 @@
         android:layout_width="375dp"
         android:layout_height="611dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent,TextSizeCheck">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32sp"
             android:fontFamily="@font/oleo_script"
-            android:text="Account Setup"
-            android:textColor="@color/green_flora"
-            android:textSize="60sp" />
+            android:text="@string/account_setup"
+            android:textColor="@color/Green"
+            android:textSize="60sp"
+            tools:ignore="TextContrastCheck" />
 
-        <EditText
-            android:id="@+id/username_input"
+        <!--        <EditText-->
+        <!--            android:id="@+id/username_input"-->
+        <!--            android:layout_width="312dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="12dp"-->
+        <!--            android:background="@drawable/rounded_corner"-->
+        <!--            android:hint="Username"-->
+        <!--            android:inputType="text"-->
+        <!--            android:padding="18dp"-->
+        <!--            android:textSize="20sp" />-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="312dp"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_corner"
+                android:hint="@string/username"
+                android:inputType="text"
+                android:padding="18dp"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--        <EditText-->
+        <!--            android:layout_width="312dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="12dp"-->
+        <!--            android:background="@drawable/rounded_corner"-->
+        <!--            android:hint="Email"-->
+        <!--            android:inputType="textEmailAddress"-->
+        <!--            android:padding="18dp"-->
+        <!--            android:textSize="20sp" />-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="312dp"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_corner"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:padding="18dp"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--        <EditText-->
+        <!--            android:id="@+id/password_input"-->
+        <!--            android:layout_width="312dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="12dp"-->
+        <!--            android:background="@drawable/rounded_corner"-->
+        <!--            android:hint="Password"-->
+        <!--            android:inputType="textPassword"-->
+        <!--            android:padding="18dp"-->
+        <!--            android:textSize="20sp" />-->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="312dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/rounded_corner"
-            android:hint="Username"
-            android:inputType="text"
-            android:padding="18dp"
-            android:textSize="20sp" />
+            app:counterEnabled="true"
+            app:counterMaxLength="15"
+            app:passwordToggleEnabled="true">
 
-        <EditText
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_corner"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:maxLength="15"
+                android:padding="18dp"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="312dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/rounded_corner"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:padding="18dp"
-            android:textSize="20sp" />
+            app:counterEnabled="true"
+            app:counterMaxLength="15"
+            app:passwordToggleEnabled="true">
 
-        <EditText
-            android:id="@+id/password_input"
-            android:layout_width="312dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/rounded_corner"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:padding="18dp"
-            android:textSize="20sp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_corner"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
+                android:maxLength="15"
+                android:padding="18dp"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <!--        <Button-->
+        <!--            android:id="@+id/login_btn"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_margin="32dp"-->
+        <!--            android:background="@drawable/rounded_corner"-->
+        <!--            android:backgroundTint="@color/Green"-->
+        <!--            android:text="Register"-->
+        <!--            android:textSize="15sp" />-->
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/login_btn"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="32dp"
             android:background="@drawable/rounded_corner"
-            android:backgroundTint="@color/GreenFloridex"
-            android:text="Register"
+            android:backgroundTint="@color/Green"
+            android:text="@string/register"
             android:textSize="15sp" />
+
         <!--        If we decide to be able to login with socials-->
         <!--        <TextView-->
         <!--            android:layout_width="match_parent"-->
@@ -93,4 +172,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
