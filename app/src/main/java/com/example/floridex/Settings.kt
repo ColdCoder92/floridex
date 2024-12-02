@@ -83,7 +83,7 @@ class Settings {
     val Context.screenHeight: Int
         get() = resources.displayMetrics.heightPixels
 
-    @RequiresApi(Build.VERSION_CODES.Q)
+    //@RequiresApi(Build.VERSION_CODES.Q)
     @Composable
     fun MakeSettingsMenu(modifier: Modifier, context: Context) {
         requestQueue = Volley.newRequestQueue(context)
@@ -186,6 +186,7 @@ class Settings {
             // want this box in a lighter red
         }
 
+        /*
         fun onBackPressed() {
             // Call AccountPage method
 
@@ -193,6 +194,8 @@ class Settings {
             // Call the default behavior if needed
             //super.onBackPressed()
         }
+
+         */
 
 
     }
