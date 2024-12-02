@@ -13,20 +13,10 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="375dp"
-        android:layout_height="611dp"
+        android:layout_height="670dp"
         android:gravity="center"
         android:orientation="vertical"
         tools:ignore="UselessParent,TextSizeCheck">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32sp"
-            android:fontFamily="@font/oleo_script"
-            android:text="@string/account_setup"
-            android:textColor="@color/Green"
-            android:textSize="60sp"
-            tools:ignore="TextContrastCheck" />
 
         <!--        <EditText-->
         <!--            android:id="@+id/username_input"-->
@@ -38,6 +28,16 @@
         <!--            android:inputType="text"-->
         <!--            android:padding="18dp"-->
         <!--            android:textSize="20sp" />-->
+        <TextView
+            android:layout_width="330dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="15sp"
+            android:fontFamily="@font/oleo_script"
+            android:text="@string/account_setup"
+            android:textSize="60sp"
+            android:textColor="@color/Green"
+            tools:ignore="TextContrastCheck" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/usernameTIL"
             android:layout_width="312dp"
@@ -47,7 +47,6 @@
                 android:id="@+id/username_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:background="@drawable/rounded_corner"
                 android:hint="@string/username"
                 android:inputType="text"
@@ -152,6 +151,27 @@
             android:background="@drawable/rounded_corner"
             android:backgroundTint="@color/Green"
             android:text="@string/register"
+            android:textSize="15sp" />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/oleo_script"
+            android:text="@string/already_have_an_account"
+            android:textSize="14sp"
+            android:textColor="@color/Orange"
+            tools:ignore="TextContrastCheck" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/login_redirect"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/Green"
+            android:text="@string/log_in"
             android:textSize="15sp" />
 
 

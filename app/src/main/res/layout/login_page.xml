@@ -20,9 +20,9 @@
         tools:ignore="UselessParent">
 
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="330dp"
             android:layout_height="125dp"
-            android:src="@drawable/floridex_logo"
+            android:src="@drawable/Floridex_logo"
             tools:ignore="ContentDescription" />
 
         <!--        <EditText-->
@@ -99,6 +99,7 @@
             android:gravity="center"
             android:text="@string/don_t_have_an_account"
             android:textColor="@color/Orange"
+            android:textSize="14sp"
             tools:ignore="TextContrastCheck" />
 
         <Button
