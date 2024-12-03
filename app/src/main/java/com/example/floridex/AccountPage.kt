@@ -6,9 +6,12 @@ import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+/*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
+
 
 class AccountPage : AppCompatActivity() {
 
@@ -55,4 +58,4 @@ class AccountPage : AppCompatActivity() {
         })
     }
 }
-
+*/
