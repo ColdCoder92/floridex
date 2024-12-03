@@ -60,13 +60,13 @@ class MainActivity : ComponentActivity() {
                     val description = Description()
                     val settings = Settings()
                     val appContext = applicationContext
-                    /*
+//                    /*
                     description.MakeDescription(modifier = Modifier.padding(innerPadding),
                         appContext, 0
                     )
 
-                     */
-                    settings.MakeSettingsMenu(modifier = Modifier.padding(innerPadding), appContext)
+//                     */
+//                    settings.MakeSettingsMenu(modifier = Modifier.padding(innerPadding), appContext)
                 }
             }
         }
