@@ -1,5 +1,6 @@
 package com.example.floridex
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -7,27 +8,54 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import com.android.volley.AuthFailureError
+import com.android.volley.NetworkError
+import com.android.volley.NoConnectionError
+import com.android.volley.ParseError
 import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.ServerError
+import com.android.volley.TimeoutError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.floridex.databinding.LoginPageBinding
 import com.example.floridex.ui.theme.FloridexTheme
+import com.example.floridex.ui.theme.Green40
 import com.google.gson.Gson
+import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusChangeListener,
     View.OnKeyListener {
 
     private lateinit var mBinding: LoginPageBinding
-    private val showDialog = mutableStateOf(false)
+    private lateinit var requestQueue: RequestQueue
+    private lateinit var textView: TextView
+    private val gatewayLINK = "https://z41sqpegib.execute-api.us-east-1.amazonaws.com/userList"
+    var users = ArrayList<User>().toList()
+    var tryLogin = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +67,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCha
         mBinding.loginButton.setOnClickListener(this)
         mBinding.registerRedirect.setOnClickListener(this)
         setContentView(mBinding.root)
+        mBinding.composeView.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent { // In here, we can call composables!
+                MaterialTheme {
+                    Greeting(name = "compose")
+                }
+            }
+        }
 
         val registerButton: Button = findViewById(R.id.register_redirect)
         registerButton.setOnClickListener {
@@ -48,24 +84,75 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCha
         }
 
         val loginButton: Button = findViewById(R.id.login_button)
-
         loginButton.setOnClickListener{
-
             Log.d("myTag","click")
             val usernameInputted = mBinding.usernameInput.text.toString()
             val passwordInputted = mBinding.passwordInput.text.toString()
             if(usernameInputted == "test"){
                 Log.d("myTag","test clicked")
             }
-            
-//            val intent = Intent(this, SettingsActivity::class.java)
-//            startActivity(intent)
-//            Log.d("myTag",getUserList().toString())
-
-
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
         }
     }
 
+    @Composable
+    fun Greeting(name: String) {
+        Box (modifier = Modifier.offset(0.dp, 0.dp).background(Color(0xFF6200EE)).width(100.dp).heightIn(100.dp).clickable {
+                println("Clicked")
+                Toast.makeText(applicationContext, "Clicked", Toast.LENGTH_SHORT).show()
+                tryLogin = true
+            }
+        )
+        if(tryLogin){
+            GetUserList()
+            tryLogin = false
+        }
+        Text(text = "Hello $name!")
+    }
+
+    @Composable
+    fun GetUserList() {
+        requestQueue = Volley.newRequestQueue(applicationContext)
+        textView = TextView(applicationContext)
+
+        val hasResponse = remember { mutableStateOf(false) }
+        var responseInfo = remember { mutableStateOf(JSONObject()) }
+
+        val stringRequest = StringRequest(
+            Request.Method.GET,
+            ("$gatewayLINK?key1=value1&key2=value2&key3=value3"),
+            { response ->
+                textView.text = response
+                responseInfo.value = JSONObject(response)
+                hasResponse.value = true
+            },
+            { error ->
+                textView.text = when (error) {
+                    is TimeoutError -> "Request timed out"
+                    is NoConnectionError -> "No internet connection"
+                    is AuthFailureError -> "Authentication error"
+                    is ServerError -> "Server error"
+                    is NetworkError -> "Network error"
+                    is ParseError -> "Data parsing error"
+                    else -> "Error: ${error.message}"
+                }
+            }
+        )
+
+        requestQueue.add(stringRequest)
+        if (hasResponse.value) {
+            val gson = Gson()
+            val rowValue = responseInfo.value.get("users")
+
+            users = gson.fromJson(
+                rowValue.toString(), Array<User>::class.java
+            ).toList()
+
+            println("Response: " + rowValue)
+        }
+        //SettingsMenu()
+    }
 
 
     @Composable
