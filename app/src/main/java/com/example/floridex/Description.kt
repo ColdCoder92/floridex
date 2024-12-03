@@ -49,13 +49,16 @@ import com.android.volley.toolbox.Volley
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.MutableLiveData
 import com.android.volley.AuthFailureError
 import com.android.volley.NetworkError
@@ -135,6 +138,7 @@ class Description {
 
             println("Response: ${creatures[0].image.type}")
             BackgroundTheme()
+            MenuNav()
             ProfileNav()
             DescriptionArea(creatures[0])
             DescriptionTabButtons(creatures[0])
@@ -172,6 +176,31 @@ class Description {
         Image(painter = painterResource(R.drawable.profile), contentDescription = null,
             modifier = Modifier.offset(350.dp, 37.5.dp).width(50.dp).height(50.dp)
         )
+    }
+
+    @Composable
+    fun MenuNav() {
+        val menuPressed = remember { mutableStateOf(false) }
+        Button(modifier = Modifier.offset(16.dp, 37.5.dp).width(50.dp).height(50.dp),
+            onClick = {
+                menuPressed.value = true
+            },
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
+        ) {}
+        Image(painter = painterResource(R.drawable.menu), contentDescription = null,
+            modifier = Modifier.offset(16.dp, 37.5.dp).width(50.dp).height(50.dp),
+            colorFilter = ColorFilter.tint(DeepTeal40)
+        )
+            if (menuPressed.value) {
+                CreatureListScreen()
+            }
+    }
+
+    @Composable
+    fun CreatureListScreen() {
+        // Use the MakeCreatureList composable
+        val context = LocalContext.current
+        CreatureList().MakeCreatureList(context = context, onItemSelected = {})
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)

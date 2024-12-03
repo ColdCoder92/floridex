@@ -28,6 +28,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -60,12 +63,25 @@ class MainActivity : ComponentActivity() {
                     val description = Description()
                     val settings = Settings()
                     val appContext = applicationContext
-//                    /*
-                    description.MakeDescription(modifier = Modifier.padding(innerPadding),
-                        appContext, 0
-                    )
+                    val inMenu: MutableState<Boolean> = remember { mutableStateOf(true) }
+                    val dexID: MutableState<Int> = remember { mutableStateOf(0) } // Can be modified dynamically
 
-//                     */
+                    val onItemSelected: (Int) -> Unit = { id ->
+                        dexID.value = id
+                        inMenu.value = false // Hide the menu when an item is selected
+                    }
+
+                    if(inMenu.value) {
+                        val creatureList = CreatureList()
+                        creatureList.MakeCreatureList(appContext, onItemSelected)
+                    } else {
+                        description.MakeDescription(modifier = Modifier.padding(innerPadding),
+                            appContext,
+                            dexID = dexID.value
+                        )
+                    }
+
+
 //                    settings.MakeSettingsMenu(modifier = Modifier.padding(innerPadding), appContext)
                 }
             }
