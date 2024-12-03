@@ -1,3 +1,4 @@
+/*
 package com.example.floridex
 
 import android.content.Intent
@@ -54,3 +55,4 @@ class AccountPage : AppCompatActivity() {
     }
 }
 
+*/

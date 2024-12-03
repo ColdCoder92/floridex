@@ -62,6 +62,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.LaunchedEffect
@@ -72,8 +73,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import com.android.volley.AuthFailureError
 import com.android.volley.NetworkError
@@ -187,10 +190,10 @@ class Description {
 
             println("Response: ${creatures[0].sound}")
             BackgroundTheme()
-            ProfileNav()
+            MenuNav(context)
+            ProfileNav(creatures[0].author)
             DescriptionArea(creatures[0])
             DescriptionTabButtons(creatures[0], context)
-
         }
 
         if (hasCommentsResponse.value) {
@@ -226,7 +229,7 @@ class Description {
     }
 
     @Composable
-    fun ProfileNav() {
+    fun ProfileNav(email: String) {
         val profilePressed = remember { mutableStateOf(false) }
         Button(modifier = Modifier.offset(350.dp, 37.5.dp).width(50.dp).height(50.dp),
             onClick = {
@@ -238,9 +241,27 @@ class Description {
         )
     /*  Profile Page implementation in progress
         if (profilePressed.value) {
-            AccountPage().onCreate()
+            AccountPage().someMethod(., email)
         }
      */
+    }
+
+    @Composable
+    fun MenuNav(context: Context) {
+        val menuPressed = remember { mutableStateOf(false) }
+        Button(modifier = Modifier.offset(16.dp, 37.5.dp).width(50.dp).height(50.dp),
+            onClick = {
+                menuPressed.value = true
+            },
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
+        ) {}
+        Image(painter = painterResource(R.drawable.menu), contentDescription = null,
+            modifier = Modifier.offset(16.dp, 37.5.dp).width(50.dp).height(50.dp),
+            colorFilter = ColorFilter.tint(DeepTeal40)
+        )
+        if (menuPressed.value) {
+            CreatureList().MakeCreatureList(context)
+        }
     }
 
     @Composable

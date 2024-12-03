@@ -41,8 +41,6 @@ import com.example.floridex.ui.theme.Green40
 import com.example.floridex.ui.theme.Green80
 import com.example.floridex.ui.theme.Orange40
 import com.example.floridex.ui.theme.Orange80
-import com.example.floridex.Description
-import com.example.floridex.CreatureList
 
 
 import androidx.compose.ui.tooling.preview.Preview
