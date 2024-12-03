@@ -48,19 +48,20 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCha
 
         val loginButton: Button = findViewById(R.id.login_button)
         loginButton.setOnClickListener{
-            openFile()
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
         }
     }
 
-    private fun openFile() {
-        val filePath = "com/example/floridex/CreatureList.kt"
-        val fileUri = Uri.parse(filePath)
-        val intent = Intent(Intent.ACTION_VIEW).apply {
-            setDataAndType(fileUri, "text/plain") //
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        }
-        startActivity(intent)
-    }
+//    private fun openFile() {
+//        val filePath = "com/example/floridex/CreatureList.kt"
+//        val fileUri = Uri.parse(filePath)
+//        val intent = Intent(Intent.ACTION_VIEW).apply {
+//            setDataAndType(fileUri, "text/plain") //
+//            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//        }
+//        startActivity(intent)
+//    }
 
     private fun validateUsername(): Boolean {
         var errorMessage: String? = null
