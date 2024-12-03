@@ -29,6 +29,12 @@ class RegisterActivity : ComponentActivity(), View.OnFocusChangeListener, View.O
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+
+        val registerButton: Button = findViewById(R.id.register_btn)
+        registerButton.setOnClickListener{
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun validateUsername(): Boolean {
