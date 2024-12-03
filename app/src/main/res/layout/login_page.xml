@@ -75,8 +75,14 @@
             android:text="@string/login"
             android:textSize="20sp" />
 
-        <TextView
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/composeView"
+            android:layout_margin="16dp"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="164dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="90dp"
             android:fontFamily="@font/oleo_script"
