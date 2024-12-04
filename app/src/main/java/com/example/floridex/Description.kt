@@ -50,6 +50,8 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import android.widget.TextView
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.clickable
@@ -233,6 +235,10 @@ class Description: AppCompatActivity() {
     @Composable
     fun ProfileNav(email: String) {
         val profilePressed = remember { mutableStateOf(false) }
+        val launcher = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.StartActivityForResult(),
+            onResult = { result -> {}}
+        )
         Button(modifier = Modifier.offset(350.dp, 37.5.dp).width(50.dp).height(50.dp),
             onClick = {
                 profilePressed.value = true
@@ -241,11 +247,11 @@ class Description: AppCompatActivity() {
         Image(painter = painterResource(R.drawable.profile), contentDescription = null,
             modifier = Modifier.offset(350.dp, 37.5.dp).width(50.dp).height(50.dp)
         )
-    /*  Profile Page implementation in progress
         if (profilePressed.value) {
-            AccountPage().someMethod(., email)
+            val intent = Intent(this, AccountPage::class.java)
+            intent.putExtra("email", email)
+            launcher.launch(intent)
         }
-     */
     }
 
     @Composable
