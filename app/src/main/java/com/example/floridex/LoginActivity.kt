@@ -61,15 +61,19 @@ class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener{
         loginButton.setOnClickListener{
             val usernameInputted = mBinding.usernameInput.text.toString()
             val passwordInputted = mBinding.passwordInput.text.toString()
+            var loginSuccessful = false
             for(user in users) {
                 if (user.username == usernameInputted && user.password == passwordInputted) {
-                    val intent = Intent(this, SettingsActivity::class.java)
+                    val intent = Intent(this, DescriptionActivity::class.java)
                     startActivity(intent)
                     Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_SHORT).show()
+                    loginSuccessful = true
                     break
                 }
             }
-            Toast.makeText(applicationContext, "Incorrect username or password", Toast.LENGTH_SHORT).show()
+            if (!loginSuccessful){
+                Toast.makeText(applicationContext, "Incorrect username or password", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
