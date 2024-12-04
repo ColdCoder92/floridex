@@ -28,8 +28,7 @@ import com.example.floridex.databinding.LoginPageBinding
 import com.google.gson.Gson
 import org.json.JSONObject
 
-class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusChangeListener,
-    View.OnKeyListener {
+class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener{
 
     private lateinit var mBinding: LoginPageBinding
     private lateinit var requestQueue: RequestQueue
@@ -41,11 +40,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCha
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = LoginPageBinding.inflate(LayoutInflater.from(this))
-        mBinding.usernameInput.onFocusChangeListener = this
-        mBinding.passwordInput.onFocusChangeListener = this
-        mBinding.passwordInput.setOnKeyListener(this)
-        mBinding.loginButton.setOnClickListener(this)
-        mBinding.registerRedirect.setOnClickListener(this)
         setContentView(mBinding.root)
         mBinding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
@@ -155,9 +149,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCha
         return errorMessage == null
     }
 
-    override fun onClick(v: View?) {
-
-    }
 
     override fun onFocusChange(view: View?, hasFocus: Boolean) {
         if (view != null) {
@@ -185,8 +176,4 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCha
 
             }
         }
-
-    override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-        return false
-    }
 }

@@ -28,7 +28,7 @@ import com.example.floridex.databinding.RegisterPageBinding
 import com.google.gson.Gson
 import org.json.JSONObject
 
-class RegisterActivity : ComponentActivity(), View.OnFocusChangeListener, View.OnKeyListener {
+class RegisterActivity : ComponentActivity(), View.OnFocusChangeListener{
 
     private lateinit var mBinding: RegisterPageBinding
     private lateinit var requestQueue: RequestQueue
@@ -40,10 +40,6 @@ class RegisterActivity : ComponentActivity(), View.OnFocusChangeListener, View.O
         super.onCreate(savedInstanceState)
         mBinding = RegisterPageBinding.inflate(LayoutInflater.from(this))
         setContentView(mBinding.root)
-        mBinding.usernameInput.onFocusChangeListener = this
-        mBinding.emailInput.onFocusChangeListener = this
-        mBinding.passwordInput.onFocusChangeListener = this
-        mBinding.confirmPasswordInput.onFocusChangeListener = this
         mBinding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent { // In here, we can call composable!
@@ -267,18 +263,11 @@ class RegisterActivity : ComponentActivity(), View.OnFocusChangeListener, View.O
                             if (mBinding.passwordTIL.isErrorEnabled) {
                                 mBinding.passwordTIL.isErrorEnabled = false
                             }
-                            mBinding.confirmPasswordTIL.setStartIconDrawable(R.drawable.checkmark_circle)
                         }
                     }
                 }
             }
         }
     }
-
-    override fun onKey(view: View?, event: Int, keyEvent: KeyEvent?): Boolean {
-        return false
-    }
-
-
 }
 
