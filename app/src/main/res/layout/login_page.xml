@@ -27,6 +27,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/usernameTIL"
             android:layout_width="312dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -46,6 +48,8 @@
             android:id="@+id/passwordTIL"
             android:layout_width="312dp"
             android:layout_height="wrap_content"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             app:counterEnabled="true"
             app:counterMaxLength="15"
             app:passwordToggleEnabled="true">

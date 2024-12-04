@@ -31,6 +31,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/usernameTIL"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             android:layout_width="312dp"
             android:layout_height="wrap_content">
 
@@ -49,6 +51,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailTIL"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             android:layout_width="312dp"
             android:layout_height="wrap_content">
 
@@ -67,6 +71,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordTIL"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             android:layout_width="312dp"
             android:layout_height="wrap_content"
             app:counterEnabled="true"
@@ -89,6 +95,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/confirm_passwordTIL"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             android:layout_width="312dp"
             android:layout_height="wrap_content"
             app:counterEnabled="true"
