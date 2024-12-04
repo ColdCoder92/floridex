@@ -41,11 +41,12 @@
                     app:srcCompat="@drawable/group_1"
                     tools:ignore="ContentDescription" />
 
+                <!-- Dynamic Username -->
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/username"
+                    android:text="CatLover42"
                     android:layout_marginTop="10dp"
                     android:textSize="25sp"
                     android:textStyle="bold"
@@ -54,11 +55,12 @@
                     app:layout_constraintStart_toStartOf="@+id/imageView2"
                     app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
+                <!-- Dynamic Email -->
                 <TextView
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/email"
+                    android:text="@string/placeholder_email"
                     android:layout_marginTop="15dp"
                     android:textSize="25sp"
                     android:textStyle="bold"
@@ -79,6 +81,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:text="Account Settings"
+                        android:textStyle="bold"
+                        android:textSize="24sp"
+                        android:background="@drawable/btn_background_1"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        style="@android:style/Widget.Button"
+                        tools:ignore="HardcodedText" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/creatureList_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:text="Creature List"
                         android:textStyle="bold"
                         android:textSize="24sp"
                         android:background="@drawable/btn_background_1"

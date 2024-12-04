@@ -248,7 +248,9 @@ class Description: AppCompatActivity() {
             modifier = Modifier.offset(350.dp, 37.5.dp).width(50.dp).height(50.dp)
         )
         if (profilePressed.value) {
-            val intent = Intent(this, AccountPage::class.java)
+            val context = LocalContext.current
+            val intent = Intent(context, AccountPage::class.java)
+            context.startActivity(intent)
             intent.putExtra("email", email)
             launcher.launch(intent)
         }
