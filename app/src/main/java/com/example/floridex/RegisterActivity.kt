@@ -22,10 +22,12 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.ServerError
 import com.android.volley.TimeoutError
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.floridex.databinding.RegisterPageBinding
 import com.google.gson.Gson
+import org.json.JSONArray
 import org.json.JSONObject
 
 class RegisterActivity : ComponentActivity(), View.OnFocusChangeListener{
@@ -77,8 +79,29 @@ class RegisterActivity : ComponentActivity(), View.OnFocusChangeListener{
                 val intent = Intent(this, CreatureListActivity::class.java)
                 startActivity(intent)
                 Toast.makeText(applicationContext, "Registration successful", Toast.LENGTH_SHORT).show()
-                users = users + User(usernameInputted, emailInputted, passwordInputted)
+                // Add new user
+                val newUser = User(usernameInputted, emailInputted, passwordInputted)
+                users = users + newUser
 
+                // Convert updated user list to JSON
+                val gson = Gson()
+                val updatedUsersJson = gson.toJson(users)
+
+                // Send the updated JSON to the server
+                val jsonObjectRequest = JsonObjectRequest(
+                    Request.Method.POST,
+                    "$gatewayLINK?key1=value1&key2=value2&key3=value3",
+                    JSONObject().apply { put("users", JSONArray(updatedUsersJson)) },
+                    { _ ->
+                        Toast.makeText(applicationContext, "User list updated successfully", Toast.LENGTH_SHORT).show()
+                    },
+                    { error ->
+                        Toast.makeText(applicationContext, "Failed to update user list: ${error.message}", Toast.LENGTH_SHORT).show()
+                    }
+                )
+
+                // Add the request to the request queue
+                requestQueue.add(jsonObjectRequest)
             }
         }
     }
