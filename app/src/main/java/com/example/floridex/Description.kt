@@ -239,13 +239,13 @@ class Description: AppCompatActivity() {
             contract = ActivityResultContracts.StartActivityForResult(),
             onResult = { result -> {}}
         )
-        Button(modifier = Modifier.offset(350.dp, 37.5.dp).width(50.dp).height(50.dp),
+        Button(modifier = Modifier.offset(325.dp, 37.5.dp).width(50.dp).height(50.dp),
             onClick = {
                 profilePressed.value = true
             }
         ) {}
         Image(painter = painterResource(R.drawable.profile), contentDescription = null,
-            modifier = Modifier.offset(350.dp, 37.5.dp).width(50.dp).height(50.dp)
+            modifier = Modifier.offset(325.dp, 37.5.dp).width(50.dp).height(50.dp)
         )
         if (profilePressed.value) {
             val context = LocalContext.current
@@ -475,9 +475,6 @@ class Description: AppCompatActivity() {
                     count++
                 }
             }
-        }
-        for (comment in comments) {
-            Text(comment.comment)
         }
     }
 }

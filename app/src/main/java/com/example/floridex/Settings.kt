@@ -56,6 +56,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.zIndex
 import com.android.volley.AuthFailureError
 import com.android.volley.NetworkError
 import com.android.volley.NoConnectionError
@@ -180,14 +181,17 @@ class Settings: AppCompatActivity() {
             // want this box in a lighter red
         }
         val context = LocalContext.current
-        Box (modifier = Modifier.offset(0.dp, 304.dp).width(425.dp).heightIn(50.dp).background(Color(0xffff4444)))
+        Box (modifier = Modifier.offset(0.dp, 304.dp).width(425.dp).heightIn(50.dp).background(Color(0xffff4444)).zIndex(1f))
         {
             Text("Sign Out", modifier = Modifier.offset(5.dp, 17.5.dp))
-            Button(onClick = {
-                val intent = Intent(context, LoginActivity::class.java)
-                startActivity(intent)
-            }) {}
+
         }
+        Button(modifier = Modifier.offset(0.dp, 304.dp).width(425.dp).heightIn(50.dp).background(Color(0x00000000)),
+            onClick = {
+                val intent = Intent(context, LoginActivity::class.java)
+                context.startActivity(intent)
+            }) {}
+
 
         fun onBackPressed() {
             // Call AccountPage method
