@@ -30,9 +30,6 @@ import org.json.JSONObject
 
 
 class AccountPage : ComponentActivity() {
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_page)

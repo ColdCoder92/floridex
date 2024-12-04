@@ -16,6 +16,7 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -23,7 +24,6 @@
                     android:id="@+id/imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription= "null"
                     android:scaleType="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Username"
+                    android:text="@string/username"
                     android:layout_marginTop="10dp"
                     android:textSize="25sp"
                     android:textStyle="bold"
@@ -58,7 +58,7 @@
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email"
+                    android:text="@string/email"
                     android:layout_marginTop="15dp"
                     android:textSize="25sp"
                     android:textStyle="bold"
@@ -88,6 +88,12 @@
                         android:layout_marginBottom="10dp"
                         style="@android:style/Widget.Button"
                         tools:ignore="HardcodedText" />
+
+                    <androidx.compose.ui.platform.ComposeView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </androidx.compose.ui.platform.ComposeView>
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
