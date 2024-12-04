@@ -474,8 +474,5 @@ class Description: AppCompatActivity() {
                 }
             }
         }
-        for (comment in comments) {
-            Text(comment.comment)
-        }
     }
 }
