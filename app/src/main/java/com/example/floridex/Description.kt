@@ -257,7 +257,7 @@ class Description: AppCompatActivity() {
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
         ) {}
-        Image(painter = painterResource(R.drawable.menu), contentDescription = null,
+        Image(painter = painterResource(R.drawable.back_arrow), contentDescription = null,
             modifier = Modifier.offset(16.dp, 37.5.dp).width(50.dp).height(50.dp),
             colorFilter = ColorFilter.tint(DeepTeal40)
         )

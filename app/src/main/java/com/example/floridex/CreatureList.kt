@@ -34,6 +34,8 @@ class CreatureList: AppCompatActivity() {
         Item(2, "Bird", R.drawable.bird, "Beautiful creatures that bring joy with their songs.")
     )
 
+
+
 //    @Composable
 //    fun MakeCreatureList(context: Context) {
 //        BackgroundTheme()
@@ -77,6 +79,7 @@ class CreatureList: AppCompatActivity() {
 
     @Composable
     fun DescriptionItem(item: Item, onItemSelected: (Int) -> Unit) {
+        val context = LocalContext.current
         Column(
             modifier = Modifier
                 .padding(16.dp)
@@ -85,7 +88,7 @@ class CreatureList: AppCompatActivity() {
                 .padding(16.dp)
                 .clickable {
                     onItemSelected(item.id) // Trigger the onItemSelected callback
-                    val intent = Intent(this, DescriptionActivity::class.java)
+                    val intent = Intent(context, DescriptionActivity::class.java)
                     intent.putExtra("itemId", item.id)
                     startActivity(intent)
                 }
