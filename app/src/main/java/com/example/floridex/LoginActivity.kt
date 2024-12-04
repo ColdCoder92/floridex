@@ -98,7 +98,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCha
 
     @Composable
     fun Greeting(name: String) {
-        Box (modifier = Modifier.offset(0.dp, 0.dp).background(Color(0xFF6200EE)).width(100.dp).heightIn(100.dp).clickable {
+        Box (modifier = Modifier.offset(0.dp, 0.dp).background(Color(0xFF6200EE)).width(100.dp).heightIn(60.dp).clickable {
                 println("Clicked")
                 Toast.makeText(applicationContext, "Clicked", Toast.LENGTH_SHORT).show()
                 tryLogin = true
@@ -108,7 +108,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCha
             GetUserList()
             tryLogin = false
         }
-        Text(text = "Hello $name!")
+        Text(text = "Login")
     }
 
     @Composable
