@@ -28,6 +28,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -41,29 +44,29 @@ import com.example.floridex.ui.theme.Green40
 import com.example.floridex.ui.theme.Green80
 import com.example.floridex.ui.theme.Orange40
 import com.example.floridex.ui.theme.Orange80
+import com.example.floridex.Description
+import com.example.floridex.CreatureList
+import com.example.floridex.Settings
 
 
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.floridex.ui.theme.FloridexTheme
 
-class DescriptionActivity : ComponentActivity() {
+class CreatureListActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             FloridexTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val description = Description()
-                    val extras: Bundle? = intent.extras
-                    val item: Int = if (extras != null) {
-                        extras.getInt("item")
-                    } else {
-                        0
-                    }
+                    val creatureList = CreatureList()
                     val appContext = applicationContext
-                    description.MakeDescription(modifier = Modifier.padding(innerPadding),
-                        appContext, item
-                    )
+                    val dexID = remember { mutableIntStateOf(0) }
+                    val onItemSelected: (Int) -> Unit = { id ->
+                        dexID.intValue = id
+                    }
+                    creatureList.MakeCreatureList(
+                        modifier = Modifier.padding(innerPadding), appContext, onItemSelected)
                 }
             }
         }

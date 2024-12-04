@@ -31,6 +31,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/usernameTIL"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             android:layout_width="312dp"
             android:layout_height="wrap_content">
 
@@ -39,7 +41,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corner"
-
                 android:hint="@string/username"
                 android:inputType="text"
                 android:textColor="@color/black"
@@ -49,6 +50,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailTIL"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             android:layout_width="312dp"
             android:layout_height="wrap_content">
 
@@ -67,6 +70,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordTIL"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             android:layout_width="312dp"
             android:layout_height="wrap_content"
             app:counterEnabled="true"
@@ -89,6 +94,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/confirm_passwordTIL"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             android:layout_width="312dp"
             android:layout_height="wrap_content"
             app:counterEnabled="true"
@@ -119,6 +126,12 @@
             android:backgroundTint="@color/Green"
             android:text="@string/register"
             android:textSize="15sp" />
+
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/composeView"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:layout_width="wrap_content"

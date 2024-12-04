@@ -1,6 +1,7 @@
 package com.example.floridex
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -49,10 +50,12 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import com.android.volley.AuthFailureError
 import com.android.volley.NetworkError
 import com.android.volley.NoConnectionError
@@ -68,7 +71,7 @@ data class User(
     val password: String
 )
 
-class Settings {
+class Settings: AppCompatActivity() {
     private lateinit var requestQueue: RequestQueue
     private lateinit var textView: TextView
     private val gatewayLINK = "https://z41sqpegib.execute-api.us-east-1.amazonaws.com/userList"
@@ -176,11 +179,14 @@ class Settings {
             Text("Delete Account", modifier = Modifier.offset(5.dp, 17.5.dp))
             // want this box in a lighter red
         }
-
+        val context = LocalContext.current
         Box (modifier = Modifier.offset(0.dp, 304.dp).width(425.dp).heightIn(50.dp).background(Color(0xffff4444)))
         {
             Text("Sign Out", modifier = Modifier.offset(5.dp, 17.5.dp))
-            // want this box in a lighter red
+            Button(onClick = {
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivity(intent)
+            }) {}
         }
 
         fun onBackPressed() {
@@ -221,82 +227,6 @@ class Settings {
     }
 
     */
-
-    // Logger for monitoring performance and errors
-    val logger: Logger = Logger.getLogger("MySQLConnector")
-
-    fun connectToMySQL(): Connection? {
-        val url = "jdbc:mysql://localhost:3306/mydatabase" // Replace with your MySQL database URL
-        val username = "root" // Replace with your MySQL username
-        val password = "password" // Replace with your MySQL password
-
-        var connection: Connection? = null
-
-        try {
-            // Register the MySQL JDBC driver
-            Class.forName("com.mysql.jdbc.Driver")
-
-            // Establish the connection
-            connection = DriverManager.getConnection(url, username, password)
-            logger.log(Level.INFO, "Connected to MySQL database")
-
-        } catch (e: ClassNotFoundException) {
-            logger.log(Level.SEVERE, "MySQL JDBC driver not found", e)
-        } catch (e: SQLException) {
-            logger.log(Level.SEVERE, "Failed to connect to MySQL database", e)
-        }
-
-        return connection
-    }
-
-    fun executeQuery(connection: Connection?, query: String): ResultSet? {
-        var resultSet: ResultSet? = null
-
-        try {
-            val statement: Statement? = connection?.createStatement()
-
-            // Execute the query
-            resultSet = statement?.executeQuery(query)
-
-        } catch (e: SQLException) {
-            logger.log(Level.SEVERE, "Failed to execute query", e)
-        }
-
-        return resultSet
-    }
-
-    fun main() {
-        val connection = connectToMySQL()
-
-        if (connection != null) {
-            val query = "SELECT * FROM mytable" // Replace with your SQL query
-
-            val resultSet = executeQuery(connection, query)
-
-            if (resultSet != null) {
-                // Process the result set
-                while (resultSet.next()) {
-                    val id = resultSet.getInt("id")
-                    val name = resultSet.getString("name")
-                    val age = resultSet.getInt("age")
-
-                    println("ID: $id, Name: $name, Age: $age")
-                }
-            } else {
-                println("Failed to execute the query.")
-            }
-
-            // Close the connection
-            try {
-                connection.close()
-                logger.log(Level.INFO, "Connection closed")
-            } catch (e: SQLException) {
-                logger.log(Level.SEVERE, "Failed to close the connection", e)
-            }
-        } else {
-            println("Failed to connect to the MySQL database.")
-        }
-    }
 
     // Took some code from Description.kt (I believe was Lucas' work)
 }
