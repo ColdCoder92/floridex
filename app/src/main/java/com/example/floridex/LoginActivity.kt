@@ -1,6 +1,5 @@
 package com.example.floridex
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,18 +9,14 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -29,8 +24,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import com.android.volley.AuthFailureError
 import com.android.volley.NetworkError
 import com.android.volley.NoConnectionError
@@ -42,8 +37,6 @@ import com.android.volley.TimeoutError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.floridex.databinding.LoginPageBinding
-import com.example.floridex.ui.theme.FloridexTheme
-import com.example.floridex.ui.theme.Green40
 import com.google.gson.Gson
 import org.json.JSONObject
 
@@ -85,30 +78,25 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCha
 
         val loginButton: Button = findViewById(R.id.login_button)
         loginButton.setOnClickListener{
-            Log.d("myTag","click")
             val usernameInputted = mBinding.usernameInput.text.toString()
             val passwordInputted = mBinding.passwordInput.text.toString()
-            if(usernameInputted == "test"){
-                Log.d("myTag","test clicked")
+            for(user in users) {
+                if (user.username == usernameInputted && user.password == passwordInputted) {
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
+                } else{
+                    Toast.makeText(applicationContext, "Incorrect username or password", Toast.LENGTH_SHORT).show()
+                }
             }
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
         }
     }
 
     @Composable
     fun Greeting(name: String) {
-        Box (modifier = Modifier.offset(0.dp, 0.dp).background(Color(0xFF6200EE)).width(100.dp).heightIn(60.dp).clickable {
-                println("Clicked")
-                Toast.makeText(applicationContext, "Clicked", Toast.LENGTH_SHORT).show()
-                tryLogin = true
-            }
-        )
+        GetUserList()
         if(tryLogin){
-            GetUserList()
             tryLogin = false
         }
-        Text(text = "Login")
     }
 
     @Composable
@@ -151,39 +139,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnFocusCha
 
             println("Response: " + rowValue)
         }
-        //SettingsMenu()
-    }
-
-
-    @Composable
-    private fun getUserList(): List<User> {
-        val queue = Volley.newRequestQueue(this)
-        val url = "https://id5sdg2r34.execute-api.us-east-1.amazonaws.com/filter"
-        val userList = mutableListOf<User>()
-        val hasItem = remember{mutableStateOf(false)}
-
-        val request = StringRequest(
-            Request.Method.GET,
-            url, {
-                    response ->
-                try {
-                    val item = Gson().fromJson(response.toString(), User::class.java)
-                    userList.add(item)
-                    hasItem.value = true
-                } catch (e: Exception) {
-                    Log.d("Volley",e.message.toString())
-                }
-            },
-            {
-                    error ->
-                Log.d("Volley",("Error is: $error"))
-            }
-        )
-        queue.add(request)
-        if(hasItem.value) {
-            return userList
-        }
-        return emptyList()
     }
 
     private fun validateUsername(): Boolean {
