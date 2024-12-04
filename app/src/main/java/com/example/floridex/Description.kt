@@ -255,10 +255,10 @@ class Description {
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
         ) {}
-//        Image(painter = painterResource(R.drawable.menu), contentDescription = null,
-//            modifier = Modifier.offset(16.dp, 37.5.dp).width(50.dp).height(50.dp),
-//            colorFilter = ColorFilter.tint(DeepTeal40)
-//        )
+        Image(painter = painterResource(R.drawable.menu), contentDescription = null,
+            modifier = Modifier.offset(16.dp, 37.5.dp).width(50.dp).height(50.dp),
+            colorFilter = ColorFilter.tint(DeepTeal40)
+        )
         if (menuPressed.value) {
             CreatureList().MakeCreatureList(context)
         }
