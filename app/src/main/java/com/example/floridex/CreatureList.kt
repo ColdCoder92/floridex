@@ -1,12 +1,16 @@
 package com.example.floridex
 
 import android.content.Context
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -21,21 +25,37 @@ import com.example.floridex.ui.theme.DeepTeal40
 import com.example.floridex.ui.theme.Green40
 import com.example.floridex.ui.theme.Orange40
 
-data class Item(val name: String, val imageRes: Int, val description: String)
+data class Item(val id: Int, val name: String, val imageRes: Int, val description: String)
 
-class CreatureList {
+class CreatureList: AppCompatActivity() {
     private val items = listOf(
-        Item("Cat", R.drawable.cat, "One of the most adorable beings on the planet."),
-        Item("Dog", R.drawable.dog, "Loyal companions that love unconditionally."),
-        Item("Bird", R.drawable.bird, "Beautiful creatures that bring joy with their songs.")
+        Item(0, "Cat", R.drawable.cat, "One of the most adorable beings on the planet."),
+        Item(1, "Dog", R.drawable.dog, "Loyal companions that love unconditionally."),
+        Item(2, "Bird", R.drawable.bird, "Beautiful creatures that bring joy with their songs.")
     )
 
+//    @Composable
+//    fun MakeCreatureList(context: Context) {
+//        BackgroundTheme()
+//        LazyColumn(modifier = Modifier.fillMaxSize()) {
+//            items(items.size) { index ->
+//                DescriptionItem(item = items[index])
+//            }
+//        }
+//    }
+
     @Composable
-    fun MakeCreatureList(context: Context) {
+    fun MakeCreatureList(modifier: Modifier, context: Context, onItemSelected: (Int) -> Unit) {
+        // If you need to perform some initialization or side effect when the composable is first shown
+        LaunchedEffect(Unit) {
+            // This block runs once when the composable is first launched.
+            // You can perform actions like logging, setting up data, or other side effects here.
+        }
+
         BackgroundTheme()
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(items.size) { index ->
-                DescriptionItem(item = items[index])
+                DescriptionItem(item = items[index], onItemSelected = onItemSelected)
             }
         }
     }
@@ -56,13 +76,19 @@ class CreatureList {
     }
 
     @Composable
-    fun DescriptionItem(item: Item) {
+    fun DescriptionItem(item: Item, onItemSelected: (Int) -> Unit) {
         Column(
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth()
                 .background(Green40)
                 .padding(16.dp)
+                .clickable {
+                    onItemSelected(item.id) // Trigger the onItemSelected callback
+                    val intent = Intent(this, DescriptionActivity::class.java)
+                    intent.putExtra("itemId", item.id)
+                    startActivity(intent)
+                }
         ) {
             Text(item.name, textAlign = TextAlign.Center)
             Image(
@@ -77,11 +103,13 @@ class CreatureList {
             Spacer(modifier = Modifier.height(8.dp))
         }
     }
+
+
 }
 
 @Preview
 @Composable
 fun PreviewDescription() {
     val list = CreatureList()
-    list.MakeCreatureList(context = LocalContext.current)
+    list.MakeCreatureList(modifier = Modifier, context = LocalContext.current, onItemSelected = {})
 }

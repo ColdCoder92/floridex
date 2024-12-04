@@ -2,6 +2,7 @@ package com.example.floridex
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.ImageFormat
@@ -50,6 +51,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.height
@@ -114,7 +116,7 @@ data class Comment(
     val comment: String
 )
 
-class Description {
+class Description: AppCompatActivity() {
     private lateinit var requestQueue: RequestQueue
     private lateinit var textView: TextView
     private val gatewayLINK = "https://id5sdg2r34.execute-api.us-east-1.amazonaws.com/filter"
@@ -260,7 +262,8 @@ class Description {
             colorFilter = ColorFilter.tint(DeepTeal40)
         )
         if (menuPressed.value) {
-            CreatureList().MakeCreatureList(context)
+            val intent = Intent(this, CreatureListActivity::class.java)
+            context.startActivity(intent)
         }
     }
 

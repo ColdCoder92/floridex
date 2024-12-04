@@ -74,7 +74,7 @@ class RegisterActivity : ComponentActivity(), View.OnFocusChangeListener{
             }
             if(newAccount && validateEmail() && validatePassword() && validateConfirmPassword()
                 && validatePasswordMatch()) {
-                val intent = Intent(this, SettingsActivity::class.java)
+                val intent = Intent(this, CreatureListActivity::class.java)
                 startActivity(intent)
                 Toast.makeText(applicationContext, "Registration successful", Toast.LENGTH_SHORT).show()
                 users = users + User(usernameInputted, emailInputted, passwordInputted)

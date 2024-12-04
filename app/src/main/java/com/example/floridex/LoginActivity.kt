@@ -63,7 +63,7 @@ class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener{
             val passwordInputted = mBinding.passwordInput.text.toString()
             for(user in users) {
                 if (user.username == usernameInputted && user.password == passwordInputted) {
-                    val intent = Intent(this, SettingsActivity::class.java)
+                    val intent = Intent(this, CreatureListActivity::class.java)
                     startActivity(intent)
                     Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_SHORT).show()
                     break
