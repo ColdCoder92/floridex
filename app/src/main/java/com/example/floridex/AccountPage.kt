@@ -1,61 +1,116 @@
 package com.example.floridex
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.provider.ContactsContract.CommonDataKinds.Email
+import android.view.View
+import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.appcompat.widget.AppCompatButton
-/*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import com.android.volley.AuthFailureError
+import com.android.volley.NetworkError
+import com.android.volley.NoConnectionError
+import com.android.volley.ParseError
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.ServerError
+import com.android.volley.TimeoutError
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
+import org.json.JSONObject
 
 
 
-class AccountPage : AppCompatActivity() {
-
-        override fun onCreate(savedInstanceState: Bundle?) {
+class AccountPage : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_page)
 
-        // Find views
-        val usernameTextView: TextView = findViewById(R.id.textView)
-        val accountSettingsButton: AppCompatButton = findViewById(R.id.button)
+        // Initialize views
+        usernameTextView = findViewById(R.id.textView)
+        emailTextView = findViewById(R.id.textView1)
+        accountSettingsButton = findViewById(R.id.accSettings_button)
 
-        // Fetch username from the API
-        fetchUsername(usernameTextView)
+        // Dummy email for testing
+        val email = "test@gmail.com"
+        emailTextView.text = email
 
-        // Navigate to Settings when the button is clicked
-        accountSettingsButton.setOnClickListener {
-            val intent = Intent(this, Settings::class.java)
+        // Fetch username from Lambda
+        setContent{ GetUsername(
+            email,
+            context = TODO(),
+            dexID = TODO()
+        )}
+
+
+        // Button click event
+        val Settings_button: Button = findViewById(R.id.accSettings_button)
+        Settings_button.setOnClickListener{
+            val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
     }
-        public fun initializeActivity(savedInstanceState: Bundle?) {
-        onCreate(savedInstanceState)
-    }
-    /**
-     * Fetch the username from the API and set it to the TextView
-     */
-    private fun fetchUsername(textView: TextView) {
-        val call = ApiClient.userApi.getUser()
 
-        call.enqueue(object : Callback<UserResponse> {
-            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                if (response.isSuccessful) {
-                    val user = response.body()
-                    textView.text = user?.username ?: "No username found"
-                } else {
-                    textView.text = "Error: ${response.code()}"
+    private lateinit var usernameTextView: TextView
+    private lateinit var emailTextView: TextView
+    private lateinit var accountSettingsButton: AppCompatButton
+
+    private lateinit var requestQueue: RequestQueue
+    private lateinit var textView: TextView
+
+    // API Gateway endpoint
+    private val gatewayLINK =
+        "https://umyqtg5cmaomydvm7bfjcyldjq0gmgle.lambda-url.us-east-1.on.aws/"
+
+
+    @Composable
+    fun GetUsername(email: String, context: Context, dexID: Int) {
+        requestQueue = Volley.newRequestQueue(context)
+        textView = TextView(context)
+        val hasResponse = remember { mutableStateOf(false) }
+        var responseInfo = remember { mutableStateOf(JSONObject()) }
+
+        val stringRequest = StringRequest(
+            Request.Method.GET,
+            ("$gatewayLINK?id=$dexID"),
+            { response ->
+                textView.text = response
+                responseInfo.value = JSONObject(response)
+                hasResponse.value = true
+            },
+            { error ->
+                textView.text = when (error) {
+                    is TimeoutError -> "Request timed out"
+                    is NoConnectionError -> "No internet connection"
+                    is AuthFailureError -> "Authentication error"
+                    is ServerError -> "Server error"
+                    is NetworkError -> "Network error"
+                    is ParseError -> "Data parsing error"
+                    else -> "Error: ${error.message}"
                 }
             }
+        )
+        requestQueue.add(stringRequest)
+        if (hasResponse.value) {
+            val gson = Gson()
+            val rowValue = responseInfo.value.get("username")
+            val username: List<User> = gson.fromJson(
+                rowValue.toString(), Array<User>::class.java
+            ).toList()
 
-            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                textView.text = "Failed to load username"
-                Log.e("AccountPage", "API Error", t)
-            }
-        })
+            println("Response: ${username[0].username}")
+
+        }
     }
+
+
+
 }
-*/

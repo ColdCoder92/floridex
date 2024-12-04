@@ -16,6 +16,7 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -37,13 +38,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/imageView"
                     app:layout_constraintTop_toBottomOf="@+id/imageView"
-                    app:srcCompat="@drawable/group_1" />
+                    app:srcCompat="@drawable/group_1"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Username"
+                    android:text="@string/username"
                     android:layout_marginTop="10dp"
                     android:textSize="25sp"
                     android:textStyle="bold"
@@ -52,15 +54,28 @@
                     app:layout_constraintStart_toStartOf="@+id/imageView2"
                     app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email"
+                    android:layout_marginTop="15dp"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+
+                    app:layout_constraintEnd_toEndOf="@+id/textView"
+                    app:layout_constraintStart_toStartOf="@+id/textView"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    app:layout_constraintTop_toBottomOf="@+id/textView">
+                    app:layout_constraintTop_toBottomOf="@+id/textView1">
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/button"
+                        android:id="@+id/accSettings_button"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:text="Account Settings"
@@ -73,6 +88,12 @@
                         android:layout_marginBottom="10dp"
                         style="@android:style/Widget.Button"
                         tools:ignore="HardcodedText" />
+
+                    <androidx.compose.ui.platform.ComposeView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </androidx.compose.ui.platform.ComposeView>
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

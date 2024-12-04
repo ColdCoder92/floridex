@@ -173,11 +173,10 @@ class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener{
                             mBinding.passwordTIL.isErrorEnabled = false
                         }
                     } else {
-                            validatePassword()
-                        }
+                        validatePassword()
                     }
                 }
-
             }
         }
+    }
 }
