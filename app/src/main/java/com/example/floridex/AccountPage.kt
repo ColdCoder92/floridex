@@ -1,4 +1,3 @@
-/*
 package com.example.floridex
 
 import android.content.Intent
@@ -7,9 +6,12 @@ import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+/*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
+
 
 class AccountPage : AppCompatActivity() {
 
@@ -30,7 +32,9 @@ class AccountPage : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
+        public fun initializeActivity(savedInstanceState: Bundle?) {
+        onCreate(savedInstanceState)
+    }
     /**
      * Fetch the username from the API and set it to the TextView
      */
@@ -54,5 +58,4 @@ class AccountPage : AppCompatActivity() {
         })
     }
 }
-
 */

@@ -1,6 +1,7 @@
 package com.example.floridex
 
 import android.content.Context
+import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -13,6 +14,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -30,6 +33,7 @@ import com.example.floridex.ui.theme.Green40
 import com.example.floridex.ui.theme.Green80
 import com.example.floridex.ui.theme.Orange40
 import com.example.floridex.ui.theme.Orange80
+//import com.example.floridex.AccountPage
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
@@ -38,21 +42,101 @@ import java.sql.Statement
 import java.util.logging.Level
 import java.util.logging.Logger
 
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import com.android.volley.AuthFailureError
+import com.android.volley.NetworkError
+import com.android.volley.NoConnectionError
+import com.android.volley.ParseError
+import com.android.volley.ServerError
+import com.android.volley.TimeoutError
+import com.google.gson.Gson
+import org.json.JSONObject
+
+data class User(
+    val username: String,
+    val email: String,
+    val password: String
+)
+
 class Settings {
+    private lateinit var requestQueue: RequestQueue
+    private lateinit var textView: TextView
+    private val gatewayLINK = "https://z41sqpegib.execute-api.us-east-1.amazonaws.com/userList"
+    var users = ArrayList<User>().toList()
+    //var isPressed = remember { mutableStateOf(false) }
+    // using the above to plug Settings with Profile Page
+
     val Context.screenWidth: Int
         get() = resources.displayMetrics.widthPixels
 
     val Context.screenHeight: Int
         get() = resources.displayMetrics.heightPixels
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     @Composable
-    fun RunSettings(name: String, modifier: Modifier) {
-        SettingsMenu()
+    fun MakeSettingsMenu(modifier: Modifier, context: Context) {
+        requestQueue = Volley.newRequestQueue(context)
+        textView = TextView(context)
+
+        val hasResponse = remember { mutableStateOf(false) }
+        var responseInfo = remember { mutableStateOf(JSONObject()) }
+
+        val stringRequest = StringRequest(
+            Request.Method.GET,
+            ("$gatewayLINK?key1=value1&key2=value2&key3=value3"),
+            { response ->
+                textView.text = response
+                responseInfo.value = JSONObject(response)
+                hasResponse.value = true
+            },
+            { error ->
+                textView.text = when (error) {
+                    is TimeoutError -> "Request timed out"
+                    is NoConnectionError -> "No internet connection"
+                    is AuthFailureError -> "Authentication error"
+                    is ServerError -> "Server error"
+                    is NetworkError -> "Network error"
+                    is ParseError -> "Data parsing error"
+                    else -> "Error: ${error.message}"
+                }
+            }
+        )
+
+        requestQueue.add(stringRequest)
+        if (hasResponse.value) {
+            val gson = Gson()
+            val rowValue = responseInfo.value.get("users")
+
+            users = gson.fromJson(
+                rowValue.toString(), Array<User>::class.java
+            ).toList()
+
+
+            //println("Response: " + responseInfo)
+
+            println("Response: " + rowValue)
+            //println("Response: ${creatures[0].image.type}")
+
+            SettingsMenu()
+        }
+
+        //SettingsMenu()
     }
 
     @Preview
     @Composable
     fun SettingsMenu() {
+
         var color = DeepTeal40
         if (isSystemInDarkTheme())
         {
@@ -73,7 +157,7 @@ class Settings {
             Image(painter = painterResource(R.drawable.edit_icon), contentDescription = null,
                 modifier = Modifier.offset(280.dp, 6.5.dp), colorFilter = ColorFilter.tint(Color.Black))
 
-            Text("Username", modifier = Modifier.offset(320.dp, 17.5.dp), textAlign = TextAlign.End)
+            Text(users[0].username, modifier = Modifier.offset(320.dp, 17.5.dp), textAlign = TextAlign.End)
             // ^ Trying to get this aligned to the right
         }
 
@@ -98,6 +182,15 @@ class Settings {
             Text("Sign Out", modifier = Modifier.offset(5.dp, 17.5.dp))
             // want this box in a lighter red
         }
+
+        fun onBackPressed() {
+            // Call AccountPage method
+
+
+            // Call the default behavior if needed
+            //super.onBackPressed()
+        }
+
 
     }
     /*
