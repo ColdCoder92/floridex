@@ -250,10 +250,10 @@ class Description: AppCompatActivity() {
 
     @Composable
     fun MenuNav(context: Context) {
-        val menuPressed = remember { mutableStateOf(false) }
+        val backPressed = remember { mutableStateOf(false) }
         Button(modifier = Modifier.offset(16.dp, 37.5.dp).width(50.dp).height(50.dp),
             onClick = {
-                menuPressed.value = true
+                backPressed.value = true
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
         ) {}
@@ -261,7 +261,7 @@ class Description: AppCompatActivity() {
             modifier = Modifier.offset(16.dp, 37.5.dp).width(50.dp).height(50.dp),
             colorFilter = ColorFilter.tint(DeepTeal40)
         )
-        if (menuPressed.value) {
+        if (backPressed.value) {
             val intent = Intent(this, CreatureListActivity::class.java)
             context.startActivity(intent)
         }

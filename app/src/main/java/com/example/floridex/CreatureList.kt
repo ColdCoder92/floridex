@@ -2,6 +2,8 @@ package com.example.floridex
 
 import android.content.Context
 import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -80,6 +82,10 @@ class CreatureList: AppCompatActivity() {
     @Composable
     fun DescriptionItem(item: Item, onItemSelected: (Int) -> Unit) {
         val context = LocalContext.current
+        val launcher = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.StartActivityForResult(),
+            onResult = { result -> {}}
+        )
         Column(
             modifier = Modifier
                 .padding(16.dp)
@@ -90,7 +96,7 @@ class CreatureList: AppCompatActivity() {
                     onItemSelected(item.id) // Trigger the onItemSelected callback
                     val intent = Intent(context, DescriptionActivity::class.java)
                     intent.putExtra("itemId", item.id)
-                    startActivity(intent)
+                    launcher.launch(intent)
                 }
         ) {
             Text(item.name, textAlign = TextAlign.Center)
