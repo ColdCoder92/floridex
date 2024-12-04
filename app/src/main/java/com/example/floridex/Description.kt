@@ -2,6 +2,7 @@ package com.example.floridex
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.ImageFormat
@@ -49,7 +50,10 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import android.widget.TextView
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.height
@@ -114,7 +118,7 @@ data class Comment(
     val comment: String
 )
 
-class Description {
+class Description: AppCompatActivity() {
     private lateinit var requestQueue: RequestQueue
     private lateinit var textView: TextView
     private val gatewayLINK = "https://id5sdg2r34.execute-api.us-east-1.amazonaws.com/filter"
@@ -231,6 +235,10 @@ class Description {
     @Composable
     fun ProfileNav(email: String) {
         val profilePressed = remember { mutableStateOf(false) }
+        val launcher = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.StartActivityForResult(),
+            onResult = { result -> {}}
+        )
         Button(modifier = Modifier.offset(350.dp, 37.5.dp).width(50.dp).height(50.dp),
             onClick = {
                 profilePressed.value = true
@@ -239,28 +247,29 @@ class Description {
         Image(painter = painterResource(R.drawable.profile), contentDescription = null,
             modifier = Modifier.offset(350.dp, 37.5.dp).width(50.dp).height(50.dp)
         )
-    /*  Profile Page implementation in progress
         if (profilePressed.value) {
-            AccountPage().someMethod(., email)
+            val intent = Intent(this, AccountPage::class.java)
+            intent.putExtra("email", email)
+            launcher.launch(intent)
         }
-     */
     }
 
     @Composable
     fun MenuNav(context: Context) {
-        val menuPressed = remember { mutableStateOf(false) }
+        val backPressed = remember { mutableStateOf(false) }
         Button(modifier = Modifier.offset(16.dp, 37.5.dp).width(50.dp).height(50.dp),
             onClick = {
-                menuPressed.value = true
+                backPressed.value = true
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
         ) {}
-        Image(painter = painterResource(R.drawable.menu), contentDescription = null,
+        Image(painter = painterResource(R.drawable.back_arrow), contentDescription = null,
             modifier = Modifier.offset(16.dp, 37.5.dp).width(50.dp).height(50.dp),
             colorFilter = ColorFilter.tint(DeepTeal40)
         )
-        if (menuPressed.value) {
-            CreatureList().MakeCreatureList(context)
+        if (backPressed.value) {
+            val intent = Intent(this, CreatureListActivity::class.java)
+            context.startActivity(intent)
         }
     }
 

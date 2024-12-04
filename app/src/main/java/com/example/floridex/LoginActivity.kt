@@ -64,7 +64,7 @@ class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener{
             var loginSuccessful = false
             for(user in users) {
                 if (user.username == usernameInputted && user.password == passwordInputted) {
-                    val intent = Intent(this, DescriptionActivity::class.java)
+                    val intent = Intent(this, CreatureListActivity::class.java)
                     startActivity(intent)
                     Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_SHORT).show()
                     loginSuccessful = true
