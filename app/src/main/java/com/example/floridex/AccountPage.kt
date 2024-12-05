@@ -19,12 +19,12 @@ import com.example.floridex.databinding.AccountPageBinding
 import com.google.gson.Gson
 import org.json.JSONObject
 
-private lateinit var mBinding: AccountPageBinding
 
 class AccountPage : ComponentActivity(), View.OnClickListener, View.OnFocusChangeListener, View.OnKeyListener {
 
     private lateinit var imageView: ImageView
     private lateinit var imageView2: ImageView
+    private lateinit var mBinding: AccountPageBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,12 +50,10 @@ class AccountPage : ComponentActivity(), View.OnClickListener, View.OnFocusChang
         Log.d("AccountPage", "Email: $email")
 
 
-        /*
         // Fetch username from Lambda
         if (email != null) {
             fetchUsername(email)
         }
-        */
 
 
         // Button click event
@@ -81,7 +79,7 @@ class AccountPage : ComponentActivity(), View.OnClickListener, View.OnFocusChang
     // API Gateway endpoint
     private val gatewayLINK = "https://umyqtg5cmaomydvm7bfjcyldjq0gmgle.lambda-url.us-east-1.on.aws/"
 
-/*
+
     private fun fetchUsername(email: String) {
         val requestQueue = Volley.newRequestQueue(this)
         val stringRequest = StringRequest(
@@ -110,7 +108,7 @@ class AccountPage : ComponentActivity(), View.OnClickListener, View.OnFocusChang
         )
         requestQueue.add(stringRequest)
     }
-*/
+
     override fun onClick(p0: View?) {
         TODO("Not yet implemented")
     }

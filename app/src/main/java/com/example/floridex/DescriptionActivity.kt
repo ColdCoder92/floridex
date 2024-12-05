@@ -56,7 +56,7 @@ class DescriptionActivity : ComponentActivity() {
                     val description = Description()
                     val extras: Bundle? = intent.extras
                     val item: Int = if (extras != null) {
-                        extras.getInt("item")
+                        extras.getInt("itemId")
                     } else {
                         0
                     }

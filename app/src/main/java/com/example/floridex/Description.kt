@@ -100,15 +100,10 @@ data class Creature(
     val description: String,
     val weight: Double,
     val height: Double,
-    val image: CreatureImage,
+    val image: String,
     val type: String,
     val author: String,
     val sound: String
-)
-
-data class CreatureImage(
-    val type: String,
-    val data: ByteArray
 )
 
 data class Comment(
@@ -192,11 +187,10 @@ class Description: AppCompatActivity() {
                 rowValue.toString(), Array<Creature>::class.java
             ).toList()
 
-            println("Response: ${creatures[0].sound}")
             BackgroundTheme()
             MenuNav(context)
             ProfileNav(creatures[0].author)
-            DescriptionArea(creatures[0])
+            DescriptionArea(creatures[0], context)
             DescriptionTabButtons(creatures[0], context)
         }
 
@@ -239,13 +233,13 @@ class Description: AppCompatActivity() {
             contract = ActivityResultContracts.StartActivityForResult(),
             onResult = { result -> {}}
         )
-        Button(modifier = Modifier.offset(350.dp, 37.5.dp).width(50.dp).height(50.dp),
+        Button(modifier = Modifier.offset(325.dp, 37.5.dp).width(50.dp).height(50.dp),
             onClick = {
                 profilePressed.value = true
             }
         ) {}
         Image(painter = painterResource(R.drawable.profile), contentDescription = null,
-            modifier = Modifier.offset(350.dp, 37.5.dp).width(50.dp).height(50.dp)
+            modifier = Modifier.offset(325.dp, 37.5.dp).width(50.dp).height(50.dp)
         )
         if (profilePressed.value) {
             val context = LocalContext.current
@@ -320,7 +314,7 @@ class Description: AppCompatActivity() {
 
         if (infoPressed.value) {
             println("Info page")
-            DescriptionArea(creature)
+            DescriptionArea(creature,context)
             DescriptionTabButtons(creature, context)
         }
 
@@ -338,17 +332,19 @@ class Description: AppCompatActivity() {
     }
 
     @Composable
-    fun DescriptionArea(creature: Creature) {
+    fun DescriptionArea(creature: Creature, context: Context) {
         val name = creature.name
         val habitat = creature.habitat
         val weight = creature.weight
         val height = creature.height
         val description = creature.description
-        val imageData = creature.image.data
+        val imageData = context.assets.open("images/${creature.image}").readBytes()
 
         // Decode the Image Data into a Bitmap
         val bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
         val imageBitmap = bitmap.asImageBitmap()
+        val imageHeight = imageBitmap.height
+        val imageWidth = imageBitmap.width
 
         Box (modifier = Modifier
             .offset(0.dp, 125.dp)
@@ -358,10 +354,16 @@ class Description: AppCompatActivity() {
             .background(Green40)) {
             Text(name, modifier = Modifier.offset(0.dp, 50.dp), textAlign = TextAlign.Center)
             Image(bitmap = imageBitmap, contentDescription = null,
-                modifier = Modifier
-                    .offset(0.dp, 100.dp)
-                    .width(200.dp)
-                    .rotate(90f),
+                modifier = if (imageWidth > imageHeight) {
+                    Modifier
+                        .offset(0.dp, 100.dp)
+                        .width(200.dp)
+                } else {
+                    Modifier
+                        .offset(0.dp, 100.dp)
+                        .height(200.dp)
+                        .rotate(90f)
+                },
                 contentScale = ContentScale.FillWidth
             )
             Text("$weight Kilograms", Modifier.offset(200.dp, 100.dp))
@@ -475,9 +477,6 @@ class Description: AppCompatActivity() {
                     count++
                 }
             }
-        }
-        for (comment in comments) {
-            Text(comment.comment)
         }
     }
 }

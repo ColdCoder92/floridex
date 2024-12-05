@@ -32,16 +32,27 @@ The Florida Fauna & Flora is a Kotlin-based mobile application designed to provi
 
 ## Screenshots
 
-![Screenshot 1](screenshots/screenshot1.png)
-![Screenshot 2](screenshots/screenshot2.png)
-![Screenshot 3](screenshots/screenshot3.png)
+![Screenshot 1](app/src/main/res/screenshots/loginPage.jpg)
+![Screenshot 2](app/src/main/res/screenshots/creatureList.jpg)
+![Screenshot 3](app/src/main/res/screenshots/descriptionPage.jpg)
+![Screenshot 4](app/src/main/res/screenshots/profilePage.jpg)
+![Screenshot 5](app/src/main/res/screenshots/settingsPage.jpg)
 
 ## Getting Started
+1.	Download and Install:
+	- Download the FloriDex app from the GitHub repository.
+	- Install the app on your compatible mobile device.
+2.	Create an Account:
+	- Open the app and tap on "Register"
+	- Provide your email address, password, and other required information.
+3.	Log In:
+	- Enter your email address and password.
+	- Tap on "Log In."
 
 ### Prerequisites
 
 - Android Studio (with Kotlin support)
-- Android Emulator or Physical Android Device
+- Android Emulator or Physical Android Device (Version 13+)
 
 
 
@@ -49,9 +60,11 @@ The Florida Fauna & Flora is a Kotlin-based mobile application designed to provi
 
 ### Installation
 
-1. Clone the repository:
-   ```shell
-   git clone https://github.com/yourusername/floridex.git
+-	Go to the GitHub repository https://github.com/ColdCoder92/floridex .
+-	Search for the APK [floridex.apk](app/build/outputs/apk/androidTest/debug/floridex-debug.apk)
+-	Tap the link to download the apk and install.
+-	Follow the on-screen instructions to complete the installation.
+
    
 
 ## Built with: 
@@ -59,5 +72,19 @@ The Florida Fauna & Flora is a Kotlin-based mobile application designed to provi
  <li><code><img width="50" src="https://user-images.githubusercontent.com/25181517/192108895-20dc3343-43e3-4a54-a90e-13a4abbc57b9.png" alt="Android Studio" title="Android Studio"/></code></li>
 <li><code><img width="50" src="https://user-images.githubusercontent.com/25181517/185062810-7ee0c3d2-17f2-4a98-9d8a-a9576947692b.png" alt="Kotlin" title="Kotlin"/></code></li>
  	<li><code><img width="50" src="https://user-images.githubusercontent.com/25181517/183896128-ec99105a-ec1a-4d85-b08b-1aa1620b2046.png" alt="MySQL" title="MySQL"/></code></li>
+   <li><code><img width="50" src="https://www.pngplay.com/wp-content/uploads/3/Amazon-Web-Services-AWS-Logo-Transparent-PNG.png" alt="AWS" title="AWS"/></code></li>
 </ul>
+
+## Troubleshooting
+
+Contact Support: 
+- Create a new issue on the GitHub repository with the issue, and at least one of our team members would reach out and help resolve it
+
+## Additional Tips
+
+This product is still in a demo version, so stay tuned for more features on the way
+
+## Thank You
+
+Thank you for choosing FloriDex. We hope you enjoy using our app. If you have any questions or feedback, please don't hesitate to contact us.
 
