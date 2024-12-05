@@ -161,7 +161,7 @@ class Settings: AppCompatActivity() {
             Image(painter = painterResource(R.drawable.edit_icon), contentDescription = null,
                 modifier = Modifier.offset(280.dp, 6.5.dp), colorFilter = ColorFilter.tint(Color.Black))
 
-            Text(users[0].username, modifier = Modifier.offset(320.dp, 17.5.dp), textAlign = TextAlign.End)
+            Text(users[0].username, modifier = Modifier.offset(310.dp, 17.5.dp), textAlign = TextAlign.End)
             // ^ Trying to get this aligned to the right
         }
 
