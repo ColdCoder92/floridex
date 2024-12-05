@@ -103,7 +103,7 @@ data class Creature(
     val image: String,
     val type: String,
     val author: String,
-    val sound: String
+    val sound: String?
 )
 
 data class Comment(
@@ -352,7 +352,10 @@ class Description: AppCompatActivity() {
             .heightIn(300.dp)
             .fillMaxSize()
             .background(Green40)) {
-            Text(name, modifier = Modifier.offset(0.dp, 50.dp), textAlign = TextAlign.Center)
+            Text(
+                name,
+                modifier = Modifier.align(Alignment.TopCenter).offset(y=50.dp)
+            )
             Image(bitmap = imageBitmap, contentDescription = null,
                 modifier = if (imageWidth > imageHeight) {
                     Modifier
@@ -385,7 +388,7 @@ class Description: AppCompatActivity() {
             .fillMaxSize()
             .background(Green40)) {
                 Column(modifier = Modifier.fillMaxWidth().fillMaxHeight().padding(16.dp)) {
-                    if (creature.sound.isNotEmpty()) {
+                    if (!creature.sound.isNullOrEmpty()) {
                         val audioLocation = context.assets.openFd("audio/${creature.sound}")
                         val mediaPlayer = MediaPlayer()
                         val playing = remember { mutableStateOf(false) }
@@ -398,7 +401,7 @@ class Description: AppCompatActivity() {
                         mediaPlayer.setVolume(100F, 100F)
                         mediaPlayer.prepare()
                         Text(
-                            name, modifier = Modifier, textAlign = TextAlign.Center
+                            name, modifier = Modifier.align(Alignment.CenterHorizontally).offset(y=(-10).dp)
                         )
                         Icon(
                             imageVector = Icons.Default.PlayArrow, contentDescription = null,
@@ -427,7 +430,14 @@ class Description: AppCompatActivity() {
                                 })
                         )
                     } else {
-                        Text("No audio available")
+                        Text(
+                            name,
+                            modifier = Modifier.offset(y=50.dp).align(Alignment.CenterHorizontally)
+                        )
+                        Text(
+                            "No audio available",
+                            modifier = Modifier.offset(y=100.dp).align(Alignment.CenterHorizontally)
+                        )
                     }
                 }
         }
@@ -442,7 +452,7 @@ class Description: AppCompatActivity() {
             .heightIn(250.dp)
             .fillMaxSize()
             .background(Green40)) {
-            Text(name, modifier = Modifier.offset(0.dp, 50.dp), textAlign = TextAlign.Center)
+            Text(name, modifier = Modifier.align(Alignment.TopCenter).offset(y=50.dp))
             Image(painter = painterResource(R.drawable.map), contentDescription = null,
                 modifier = Modifier.offset(0.dp, 100.dp), contentScale = ContentScale.FillWidth)
         }

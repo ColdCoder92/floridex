@@ -66,12 +66,6 @@ import com.android.volley.TimeoutError
 import com.google.gson.Gson
 import org.json.JSONObject
 
-data class User(
-    val username: String,
-    val email: String,
-    val password: String
-)
-
 class Settings: AppCompatActivity() {
     private lateinit var requestQueue: RequestQueue
     private lateinit var textView: TextView
@@ -86,7 +80,6 @@ class Settings: AppCompatActivity() {
     val Context.screenHeight: Int
         get() = resources.displayMetrics.heightPixels
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     @Composable
     fun MakeSettingsMenu(modifier: Modifier, context: Context) {
         requestQueue = Volley.newRequestQueue(context)
@@ -128,7 +121,7 @@ class Settings: AppCompatActivity() {
 
             //println("Response: " + responseInfo)
 
-            println("Response: " + rowValue)
+            // println("Response: " + rowValue)
             //println("Response: ${creatures[0].image.type}")
 
             SettingsMenu()
@@ -159,9 +152,9 @@ class Settings: AppCompatActivity() {
             Text("Username", modifier = Modifier.offset(5.dp, 17.5.dp))
 
             Image(painter = painterResource(R.drawable.edit_icon), contentDescription = null,
-                modifier = Modifier.offset(280.dp, 6.5.dp), colorFilter = ColorFilter.tint(Color.Black))
+                modifier = Modifier.offset(225.dp, 6.5.dp), colorFilter = ColorFilter.tint(Color.Black))
 
-            Text(users[0].username, modifier = Modifier.offset(310.dp, 17.5.dp), textAlign = TextAlign.End)
+            Text(users[0].username, modifier = Modifier.offset(290.dp, 17.5.dp), textAlign = TextAlign.End)
             // ^ Trying to get this aligned to the right
         }
 

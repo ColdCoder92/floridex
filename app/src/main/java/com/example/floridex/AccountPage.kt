@@ -19,6 +19,11 @@ import com.example.floridex.databinding.AccountPageBinding
 import com.google.gson.Gson
 import org.json.JSONObject
 
+data class User(
+    val username: String,
+    val email: String,
+    val password: String
+)
 
 class AccountPage : ComponentActivity(), View.OnClickListener, View.OnFocusChangeListener, View.OnKeyListener {
 
@@ -77,7 +82,7 @@ class AccountPage : ComponentActivity(), View.OnClickListener, View.OnFocusChang
     private lateinit var creatureListButton: AppCompatButton
 
     // API Gateway endpoint
-    private val gatewayLINK = "https://umyqtg5cmaomydvm7bfjcyldjq0gmgle.lambda-url.us-east-1.on.aws/"
+    private val gatewayLINK = "https://1e3i04cr74.execute-api.us-east-1.amazonaws.com/filter"
 
 
     private fun fetchUsername(email: String) {
@@ -89,11 +94,12 @@ class AccountPage : ComponentActivity(), View.OnClickListener, View.OnFocusChang
                 try {
                     // Parse the outer JSON object to get the "body" field
                     val responseJson = JSONObject(response)
-                    val body = responseJson.getString("body")
+                    val body = responseJson.get("users")
 
-                    // Now parse the body (which is a JSON string itself) to get the username
-                    val bodyJson = JSONObject(body)
-                    val username = bodyJson.getString("username")
+                    val gson = Gson()
+                    val users = gson.fromJson(body.toString(), Array<User>::class.java).toList()
+
+                    val username = users[0].username
                     usernameTextView.text = username // Display username
                 } catch (e: Exception) {
                     usernameTextView.text = "Error parsing response"
