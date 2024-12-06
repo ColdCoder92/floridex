@@ -470,7 +470,7 @@ class Description: AppCompatActivity() {
             if (comments.isEmpty()) {
                 Text(
                     "No comments yet",
-                    modifier = Modifier.offset(y = 50.dp).align(Alignment.Center)
+                    modifier = Modifier.offset(y = 25.dp).align(Alignment.Center)
                 )
             } else {
                 val rowHeight = 25.dp
