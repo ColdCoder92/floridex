@@ -61,7 +61,7 @@ The Florida Fauna & Flora is a Kotlin-based mobile application designed to provi
 ### Installation
 
 -	Go to the GitHub repository https://github.com/ColdCoder92/floridex .
--	Search for the APK [floridex.apk](app/build/outputs/apk/androidTest/debug/floridex-debug.apk)
+-	Search for the APK [floridex.apk](app/build/outputs/apk/debug/floridex-debug.apk)
 -	Tap the link to download the apk and install.
 -	Follow the on-screen instructions to complete the installation.
 
